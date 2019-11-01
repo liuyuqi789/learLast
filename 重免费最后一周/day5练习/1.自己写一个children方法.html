@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="ul">
+        <li>haha</li>
+    </ul>
+    <script>
+        // 实现步骤: 先判断传入的是不是字符串和元素,如果是字符串要先获取元素,如果是元素直接使用
+        //          获取传入的元素的所有子节点
+        //          判断所有子节点中的元素节点
+        //          放入到数组里,返回
+        function chil(parent){
+            typeof parent === 'string' ? parent = document.querySelector(parent) : (parent.nodeType === 1 ? parent = parent : null)
+            let fu = parent.childNodes
+            let ary = []
+            for(let i = 0 ; i < fu.length ; i++){
+                if(fu[i].nodeType === 1){
+                    ary.push(fu[i])
+                }
+            }
+            return ary
+        }
+        console.log(chil('#ul'))
+    </script>
+</body>
+</html>

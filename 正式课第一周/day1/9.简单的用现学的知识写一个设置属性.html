@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    属性:<input type="text" id="t1">
+    值:<input type="text" id="t2">
+    <button id="btn">设置</button>
+    <div id="box"></div>
+    <script>
+        const t1 = document.getElementById('t1')
+        const t2 = document.getElementById('t2')
+        const btn = document.getElementById('btn')
+        const box = document.getElementById('box')
+        let ary = []
+
+        btn.onclick = function(){
+            let str = `${t1.value}:${t2.value}`
+            ary.push(str)
+            let str2 = ary.join('')
+            box.setAttribute('style',str2)
+        }
+    </script>
+</body>
+</html>

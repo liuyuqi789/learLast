@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#box{
+    width:100px;
+    background: red;
+    height:0;
+    transition: 1s;
+    position: absolute;
+    top:50px;
+    left:0;
+}   
+</style>
+</head>
+<body>
+    <button id="btn">显示</button>
+    <div id="box"></div>
+<script>
+    var btn = document.getElementById('btn')
+    var box = document.getElementById('box')
+
+    btn.onclick = function(){
+        box.style.height = '100px'
+        box.style.width = '100px'
+        box.style.background = 'yellow'
+    }
+</script>
+</body>
+</html>

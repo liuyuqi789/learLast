@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let ary = [1,2,3,4,5]
+        let ary2 = [2,3,4]
+
+        let ary4 = ary2.filter(ele=>{
+            let s = new Set(ary)
+            return s.has(ele)
+        })
+        console.log(ary4)
+
+        let ary5 = []
+        ary2.forEach(ele=>{
+            if(ary.includes(ele)){
+                ary5.push(ele)
+            }
+        })
+        console.log(ary5)
+
+        let ary6 = []
+        for(let i = 0 ; i < ary.length ; i++){
+            for(let j = 0 ; j < ary2.length ; j++){
+                if(ary[i]===ary2[j]){
+                    ary6.push(ary[i])
+                }
+            }
+        }
+        console.log(ary6)
+    </script>
+</body>
+</html>

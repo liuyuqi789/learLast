@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .c{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            background:yellow;
+            transition: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script>
+        let box = document.getElementById('box')
+        
+        for(let i = 0 ; i < 10 ; i++){
+            let div = document.createElement('div')
+            div.className = 'c'
+            div.onoff = true
+            div.style.left = i * 60 + 'px'
+            div.onclick = function(){
+                this.style.top = this.onoff ? '300px' : 0
+                left(this)
+                right(this)
+                this.onoff = !this.onoff
+            }
+            box.appendChild(div)
+        }
+
+        function left(act){
+            let prev = act.previousElementSibling
+            if(!prev)return
+            setTimeout(()=>{
+                prev.style.top = prev.onoff ? '300px' : 0
+                prev.onoff = !prev.onoff
+                left(prev)
+            },100)
+        }
+
+        function right(act){
+            let next = act.nextElementSibling
+            if(!next)return
+            setTimeout(()=>{
+                next.style.top = next.onoff ? '300px' : 0
+                next.onoff = !next.onoff
+                right(next)
+            },100)
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+<script>
+    let obj = {
+        width:'100px',
+        height:100,
+        background:'yellow'
+    }
+
+    for(let attr in obj){
+        if(typeof obj[attr] === 'string'){
+            box.style[attr] = obj[attr]
+        } else if(typeof obj[attr] === 'number'){
+            box.style[attr] = obj[attr] + 'px'
+        }
+    }
+</script>
+</body>
+</html>

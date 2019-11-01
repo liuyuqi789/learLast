@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        全选 <input type="checkbox" id="ccc">
+    </div>
+    <div id="s">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+    </div>
+    <script>
+        // 获取s下的所有的checkbox
+        // let checkboxs = document.querySelectorAll('#s input')
+
+        // // 定义一个空数组储存true和false
+        // let ary = []
+        // // 循环checkboxs给每一项绑定点击事件
+        // for(let i = 0 ; i < checkboxs.length ; i++){
+        //     // 让数组中每一项，i是checkboxs的每一项
+        //     ary[i] = false
+        //     checkboxs[i].onclick = function(){
+        //         // 让本身具有的属性checked(本身含有布尔值)替换掉ary中的每一项
+        //         ary[i] = this.checked
+        //         // 让全选的checked属性,如果ary中每一项都为true，就变成选中状态
+        //         ccc.checked = ary.every(item=>item)
+        //     }
+        // }
+        // let ary = []
+        // checkboxs.forEach((item,i) => {
+        //     ary[i] = false
+        //     item.onclick = function(){
+        //         ary[i] = this.checked
+        //         ccc.checked = ary.every(item=>item)
+        //     }
+        // })
+    </script>
+</body>
+</html>
