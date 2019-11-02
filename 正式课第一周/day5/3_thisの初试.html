@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // this，在各个地方指向的是不同的地方
+        // 在函数中,如果直接执行 fn() this指的就是window
+        // 在对象中 let obj = {fn:function(){console.log(this)}}
+        //    obj.fn() this指的是fn
+        // 在事件中 谁调用的事件this就指向谁
+
+        // Round 1 
+        // 进来函数自执行 (小技巧:当发现连等的时候,先算后面的,再把后面的值给到前面)
+        // +function(){
+        //     // 形参赋值无 
+        //     // 变量提升 var a、a = function(){}、var c
+        //     console.log(a) // a = function(){}
+        //     var a=5;
+        //     function a(){}
+        //     console.log(a) // 5
+        //     function b(){}
+        //     b=6
+        //     console.log(b) // 6
+        //     // 因为只提升了c ,所以d不在这个作用域中
+        //     // 小扩展:var a = 0,b = 0等于 var a = 0 var b = 0
+        //     var c=d=b
+        // }()
+        // console.log(d) // 6
+        // console.log(c) // 报错
+
+
+        // Round 2
+        // 变量提升 var obj、var ff、var fn
+        var obj = {
+            val:2,
+            dbl:function(){ 
+                // 变量提升 var val
+                var val = 45;
+                console.log(this); // obj window
+                this.val *= 2;
+                console.log(val); // 45 45
+                console.log(this.val); // 4 NaN
+            }
+        }
+        var ff = obj.dbl();  // obj 45 4
+        var fn = obj.dbl; // 把obj.dbl的地址给了fn
+        fn(); // window 45 NaN
+        console.log(window.val) // NaN
+    </script>
+</body>
+</html>

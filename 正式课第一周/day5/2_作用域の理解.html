@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 作用域分为全局作用域和私有作用域
+        // 全局作用域就是window(全局栈内存)
+        // 私有作用域是在函数执行的时候自动形成一个私有栈内存
+        var a = 111
+        function fn(a){
+            // 执行时先开辟一个堆内存存储函数中的代码
+            // 然后形参赋值,变量提升,执行代码,外界若果没有引用
+            // 栈内存自动销毁
+            console.log(a) // 111
+            var a
+            a = 10
+            console.log(a) //10
+        }
+        fn(a)
+        console.log(a) //111
+
+        // 过程: 全局中先变量提升 ，var c、 qq = function(){}
+        var c = function (){console.log(11)}
+        function qq(c){
+            // 形参赋值: c = function(){console.log(11)}
+            // 变量提升: var c、c = function(){console.log(111)}
+            // 由此可以看出:肚子里的函数>形参>变量提升赋予的值
+            console.log(c) // c = function(){console.log(111)}
+            function c(){console.log(111)}
+            var c = 20
+            console.log(c) // 20
+        }
+        qq(c)
+        
+    </script>
+</body>
+</html>

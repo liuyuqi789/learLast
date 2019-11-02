@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 只要带var 和 带 function 的 在代码执行前都会进行一步变量提升,预解析
+
+        /*
+            var a = undefined
+            把函数b变量提升并赋值
+            b = function(){console.log(1)}
+        */
+        var a = 0
+        function b(){console.log(1)}
+    </script>
+</body>
+</html>

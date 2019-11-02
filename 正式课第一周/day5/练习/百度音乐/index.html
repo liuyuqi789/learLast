@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.a{
+				background: yellow;
+			}
+			.b{
+				background:red;
+			}
+			.c{
+				background:orchid;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="baidu.css" />
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="baidu">
+				<ul id="list">
+					<li>
+						<div></div>
+						<span>泡沫</span>
+						<span>邓紫棋</span>
+					</li>
+					<li>
+						<div></div>
+						<span>说爱你</span>
+						<span>蔡依林</span>
+					</li>
+					<li>
+						<div></div>
+						<span>稻香</span>
+						<span>周杰伦</span>
+					</li>
+					<li>
+						<div></div>
+						<span>我的梦</span>
+						<span>张靓颖</span>
+					</li>
+					<li>
+						<div></div>
+						<span>怎么说我不爱你</span>
+						<span>萧敬腾</span>
+					</li>
+					<li>
+						<div>️</div>
+						<span>无处安放</span>
+						<span>白若溪</span>
+					</li>
+				</ul>
+				<div class="select">
+					<span class="selectAll"><span>全选</span></span>
+					<div class="others">
+						<span><em></em>收藏</span>
+						<span><em></em>添加</span>
+						<span><em></em>删除</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			const lis = document.querySelectorAll("#list li")
+			const divs = document.querySelectorAll('#list div')
+			const span = document.querySelector('.selectAll')
+			
+			let ary = [false,false,false,false,false,false]
+			ary.forEach((item,i)=>{
+				let onoff = true
+				// 隔行变色
+				if(i % 2 === 0){
+					lis[i].classList.add('a')
+				}else{
+					lis[i].classList.add('b')
+				}
+				// 移入改变颜色,移出变回
+				lis[i].onmouseover = function(){
+					lis[i].classList.add('c')
+				}
+				lis[i].onmouseout = function(){
+					if(divs[i].innerText != '√'){
+						lis[i].classList.remove('c')
+					}
+				}
+				// 点击div,打钩并且背景变色
+				divs[i].onclick = function(){
+					if(onoff){
+						this.innerText = '√'
+						ary[i] = true
+					}else{
+						this.innerText = ''
+						ary[i] = false
+					}
+					onoff = !onoff
+					let ccc = ary.every(item=>item)
+					if(ccc){
+						span.style.background = 'black'
+					}else{
+						span.style.background = ''
+					}
+				}
+				// 点击span,所有全选或者全不选
+				span.onclick = function(){
+					if(onoff){
+						span.style.background = 'black'
+						for(let a = 0 ; a < divs.length ; a++){
+							divs[a].innerText = '√'
+							lis[a].classList.add('c')
+							ary[a] = true
+						}
+					}else{
+						span.style.background = ''
+						for(let a = 0 ; a < divs.length ; a++){
+							divs[a].innerText = ''
+							lis[a].classList.remove('c')
+							ary[a] = false
+						}
+					}
+					onoff = !onoff
+				}
+			})
+			
+		</script>
+	</body>
+
+</html>
