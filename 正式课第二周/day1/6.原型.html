@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 原型只有函数上有 Fn.prototype
+        // 原型链是一种方法,每个实例都有一个__proto__的方法,
+        // 指向当前实例所属类的原型
+        function Fq(){
+
+        }
+        Fq.prototype.say = function(){
+            console.log(1)
+        }
+        let f = new Fq
+        console.log(f.__proto__ == Fq.prototype)
+        console.log(f.say())
+    </script>
+</body>
+</html>

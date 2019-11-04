@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 面向对象是一种编程思想,就是把具有相同特性特点的代码抽离出来放到一个类里,再把这个类
+        // 的属性、方法挂载到这个类的原型上
+        function Fn(name,age){ // 类
+            this.name = name
+            this.age = age
+        }
+        Fn.prototype.sex = 'nan'
+        let ff = new Fn('aa',100) // 实例
+        console.log(ff.name)
+        console.log(ff.sex)
+    </script>
+</body>
+</html>

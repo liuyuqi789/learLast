@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 单例是什么？单独的实例 单例就是个破对象
+        // 高级单例是什么? 自执行函数包个破对象
+
+        // let obj = {
+        //     name:'gg',
+        //     age:1
+        // }
+        
+        let obj2 = (function(){
+            let name = 'sss'
+            let age = 10
+
+            function svb(){
+                let sum = []
+                for(let i = 0 ; i < 30 ; i++){
+                    sum.push(i)
+                }
+                return sum
+            }
+
+            return {
+                name:name,
+                age:age,
+                svb:svb
+            }
+        })()
+
+        let obj3 = {
+            svb:function(){
+               return 1
+            },
+            stt:obj2.svb
+        }
+        console.log(obj3.svb(),obj3.stt())
+    </script>
+</body>
+</html>
