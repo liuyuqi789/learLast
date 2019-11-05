@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // call 第一个参数改变this,第二个参数之后是函数正常的实参
+        // apply 第一个参数改变this,第二个参数是个数组
+        // bind 第一个参数改变this,第二个参数是实参
+        // bind返回的是新函数,只有调用返回的函数才能执行函数内的代码
+        // 注意:不能传null、undefined，无意义,改变不了this
+
+        function fn(a,b){
+            console.log(this,a,b)
+        }
+        // fn.call('11',1,2)
+        // fn.apply('cc',[4,2])
+        fn.bind('bb')(1,2)
+
+    </script>
+</body>
+</html>
