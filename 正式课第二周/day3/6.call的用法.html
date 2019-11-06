@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        // call有什么用,改变this
+        // Object.prototype.toString.call()用来查询
+        // Array的toString除了数组本身别的也都能检测测数据类型
+        // 所有的数据都有一个toString 能够检测当前的数据类型，所以可以把this改变
+        let str = '123456'
+        console.log(Object.prototype.toString.call(str)) // [object String]
+        // 把类数组转化成数组
+        const leiSi = document.getElementsByTagName('li')
+        let arr = Array.from(leiSi)
+        console.log(arr)
+
+    </script>
+</body>
+</html>

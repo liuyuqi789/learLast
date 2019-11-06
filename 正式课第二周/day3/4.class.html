@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // class 的用法 声明类的方法 如果要给自身添加属性,需要用constructor,如果是要添加到原型上
+        //                         直接写方法名(){}就行
+        // class cc { constructor(属性名){this.属性名=属性名} 方法名(){}}
+        class Ab  {
+            constructor(name){
+                this.name = name
+            }
+            say(){
+                console.log(this.name)
+            }
+        }
+        let f = new Ab('cc')
+        console.log(f.say()) // cc
+
+    </script>
+</body>
+</html>

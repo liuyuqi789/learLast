@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let {key} = {key:value}
+        // 在函数中,对象的解构赋值,如果穿了对象那么就按照传的对象来解析
+        
+        // function move({x, y} = { x: 0, y: 0 }) {
+        //     return [x, y];
+        // }
+        // const {log} = console; 
+        // log(move({x: 3, y: 8})); // 3,8没啥好说的  
+        // log( move( {x: 3} ));  // 3,,undefined,按照传的对象
+        // log( move({})); // undefined,undefined
+        // log(move()); // 0,0
+
+        let obj = {
+        p: [
+            'Hello',
+            {
+                y: 'World',
+                z:{
+                    x:[
+                        {
+                            j:0
+                        }
+                    ]
+                }
+            }
+            ]
+        };
+        let {p:[x,{y,z:{x:{j}}}]} = obj
+    </script>
+</body>
+</html>
