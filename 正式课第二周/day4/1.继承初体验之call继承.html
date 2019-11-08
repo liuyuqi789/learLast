@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 当一个类(人)分出来一个子类(男人),他们具有一些相同的特性,这个时候如果再写一遍会使代码冗余
+
+        function Person(name,age){
+            this.name = name
+            this.age = age
+        }
+        Person.prototype.say = function(){
+            alert('我的名字是' + this.name)
+        }
+
+        // 解决方法,赋址 但是赋址如果改变的话,那么person的值也会改变
+        // Man.prototype = Person.prototype
+        // 所以用 Object.assign方法
+        Object.assign(Man.prototype,Person.prototype)
+        function Man(name,age){
+            // 怎么把person里的属性拿过来呢?拿过来了this是window,那么怎么让this变成Man的实例呢
+            Person.call(this,name,age)
+        }
+        Man.prototype.say = function(){
+            alert('哎哎哎' + this.name)
+        }
+        // 那么，私有的属性拿过来了,如何拿过来公有的呢
+        let f1 = new Person('cc',10)
+        console.log(f1.name)
+        let f2 = new Man('aa',10)
+        console.log(f2.name)
+        console.log(f1.say())
+        console.log(f2.say())
+    </script>
+</body>
+</html>

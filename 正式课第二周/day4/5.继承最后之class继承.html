@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // class继承只需要执行 class 子类 extends 父类,要用this必须写super
+        // class Person {
+        //     constructor(name, age) {
+        //         this.name = name
+        //         this.age = age
+        //     }
+        //     say() {
+        //         alert('做个人吧' + this.name)
+        //     }
+        // }
+
+        // class Cq extends Person {
+        //     constructor(joy, ...arg) {
+        //         super(...arg)
+        //         this.joy = '攘夷'
+        //     }
+        // }
+
+        // let p = new Person('猜猜', 40)
+        // let p1 = new Cq('joy4', '猜猜', 40)
+        // p1.say()
+        // console.log(p1.joy)
+
+        class Fu {
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+            speak(){
+                alert('see')
+            }
+        }
+
+        class Zi extends Fu {
+            constructor(job,...arg) {
+                super(...arg)
+                this.job = job
+            }
+        }
+        let gin = new Fu('银多吉',28)
+        let gui = new Zi('joy4','卡紫拉',10)
+        console.log(gui.job)
+    </script>
+</body>
+
+</html>

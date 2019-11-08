@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 原型继承就是弄个空类承受父类,子类再引用空类的实例(可以让父函数少调用一次),或者子类直接引用父类的实例
+        function Person(name,age){
+            this.name = name
+            this.age = age
+        }
+        function Ren(name,age){
+            Person.call(this,name,age)
+        }
+
+        Person.prototype.say = function(){
+            alert('做个人吧'+this.name)
+        }
+
+        // Ren.prototype = new Person
+
+        function Kon(){}
+        Kon.prototype = Person.prototype
+        Ren.prototype = new Kon
+
+        let p = new Person('min',1)
+        let p1 = new Ren('a',11)
+        p1.say()
+    </script>
+</body>
+</html>

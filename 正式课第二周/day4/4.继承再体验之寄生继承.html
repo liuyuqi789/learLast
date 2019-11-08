@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 用的是 子类的原型 = Object.create(父类的原型)
+        function Person(name,age){
+            this.name = name
+            this.age = age
+        }
+        function Ren(name,age){
+            Person.call(this,name,age)
+        }
+
+        Person.prototype.say = function(){
+            alert('做个人吧'+this.name)
+        }
+
+        Ren.prototype = Object.create(Person.prototype)
+
+        let p = new Person('min',1)
+        let p1 = new Ren('a',11)
+        p1.say()
+    </script>
+</body>
+</html>

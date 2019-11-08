@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 浅拷贝 解决赋址,如果是一个引用地址想要上面的引用地址的东西,改变下面的不会影响上面,应该怎么办
+        let ary = [1,2,3,4]
+        let ary2 = []
+        for(let i = 0 ; i < ary.length ; i++){
+            ary2.push(ary[i])
+        }
+        ary2.push(5)
+        // console.log(ary2)
+        // console.log(ary)
+
+        // 这个时候问题来了,如果传进来的是个引用类型怎么办? 并且,如果传进来了一个对象怎么办
+        let arr = [1,2,3,[1],{name:'哈哈'}]
+        function doIt(obj){
+            if(typeof obj !== null && typeof obj !== 'object')return console.log('你传错了')
+            // 判断方法有很多,但是……数组也是对象,请牢记(惨痛的教训)
+            let are = Array.isArray(obj) ? [] : {}
+            // 因为有可能是个对象引用这个方法，所以要用for in
+            for(let att in obj){
+                if(typeof obj[att] === 'object'){
+                    are[att] = doIt(obj[att])
+                }else{
+                    are[att] = obj[att]
+                }
+            }
+            return are
+        }
+        let aro = doIt(arr)
+        aro[3].push(1)
+        console.log(aro)
+        console.log(arr)
+    </script>
+</body>
+</html>
