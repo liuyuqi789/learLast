@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="./css/1.css">
+</head>
+<body>
+   <section class="box">
+        <nav>
+            <span>排序</span>
+            <a href="javascript:void(0);" data-name="time">
+                <i class="up"></i>
+                <i class="down"></i>
+                上架时间
+            </a>
+            <a href="javascript:void(0);" data-name="hot">
+                <i class="up"></i>
+                <i class="down"></i>
+                热度
+            </a>
+            <a href="javascript:void(0);" data-name="price">
+                <i class="up "></i>
+                <i class="down"></i>
+                价钱
+            </a>
+            <div>
+                <select name="" id="sele">
+                    <option value="hot">按照热度搜索</option>
+                    <option value="price">按照价格搜索</option>
+                    <option value="hot">按照文字搜索</option>
+                </select>
+                <input type="text">
+                <button id="search">搜索</button>
+            </div>
+        </nav>
+        <ul class="list" id="ul">
+            <!-- <li>
+                <img src="./img/2.jpg" alt="">
+                <p>商品名称:<span>dsdsadsads</span></p>
+                <p>上架时间:<span>2019-10-10</span></p>
+                <p>商品热度:<span>32</span></p>
+                <p>商品价格::<span>200</span></p>
+            </li> -->
+        </ul>
+       
+   </section>
+<!-- <script src="./json/product.js"></script> -->
+<script>
+    // 先获取数据，用.json转化为正常的数据(数组)
+    fetch('./json/product.json').then(a=>a.json()).then(data=>{
+        // 拷贝一份数组,省得直接操作原数组变乱
+        let newdata = data.concat()
+        // 写一个方法用来每次点击排序都渲染进页面
+        function render(newdata){
+            // 把title,img,time,hot,price都解构出来,省得写data.xxx
+            // 名称里因为标签过长可以截一下,然后让span的title显示全
+            // 然后拼接字符串,把这些数据都放到页面中,排序的是  新数组
+            let lis = newdata.map(({title,img,time,hot,price})=>{
+                return (`<li>
+                <img src="${img}" alt="">
+                <p title="${title}">商品名称:<span>${title.substr(0,6)}</span></p>
+                <p>上架时间:<span>${time}</span></p>
+                <p>商品热度:<span>${hot}</span></p>
+                <p>商品价格::<span>${price}</span></p>
+            </li>`)
+            }).join('')
+            ul.innerHTML = lis
+        }
+        // 执行方法保证页面的渲染
+        render(newdata)
+
+        // 获取所有的a,点击排序
+        const as = document.querySelectorAll('a')
+        // 循环a绑定点击事件
+        as.forEach((ele,i)=>{
+            // 搞个开关
+            ele.onoff = true
+            ele.onclick = function(){
+                // 排谁的序？newdata的,因为已经把旧数组给了新的数组,所以不用担心,那么,如何确定拿到的是哪个数据?
+                // 给a标签绑定一个自定义属性,跟要排序的名称保持一致,然后,因为newdata是数组,所以拿到的数组下的
+                // 第索引个就是当前所需要的值
+                // 开关true,正排
+                if(this.onoff){
+                    // 上下小箭头变红
+                    this.children[0].classList.add('activet')
+                    this.children[1].classList.remove('activeb')                  
+                    newdata.sort((a,b)=>{
+                    // 如果是时间的话,排不了,那怎么办,就把时间转化成时间戳,不赋值的话不会有影响
+                    // 加加号是为了转化为数字
+                    if(this.dataset.name === 'time'){
+                        return +new Date(a[this.dataset.name]) - +new Date(b[this.dataset.name])
+                    }
+                    // 否则直接比就行了
+                    return a[this.dataset.name] - b[this.dataset.name]
+                    })
+                }else{
+                    // 同上
+                    this.children[1].classList.add('activeb')
+                    this.children[0].classList.remove('activet')  
+                    newdata.sort((a,b)=>{
+                    // 如果是时间的话,排不了,那怎么办,就把时间转化成时间戳,不赋值的话不会有影响
+                    // 加加号是为了转化为数字
+                    if(this.dataset.name === 'time'){
+                        return  +new Date(b[this.dataset.name]) - +new Date(a[this.dataset.name])
+                    }
+                    // 否则直接比就行了
+                    return  b[this.dataset.name] - a[this.dataset.name]
+                    })
+                }
+                // 执行方法,渲染进去
+                this.onoff = !this.onoff
+                render(newdata)
+            }
+        })
+    })
+    
+</script>
+</body>
+</html>

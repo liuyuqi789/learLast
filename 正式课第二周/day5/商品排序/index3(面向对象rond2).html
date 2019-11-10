@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="./css/1.css">
+</head>
+<body>
+   <section class="box">
+        <nav>
+            <span>排序</span>
+            <a href="javascript:void(0);" data-name="time">
+                <i class="up"></i>
+                <i class="down"></i>
+                上架时间
+            </a>
+            <a href="javascript:void(0);" data-name="hot">
+                <i class="up"></i>
+                <i class="down"></i>
+                热度
+            </a>
+            <a href="javascript:void(0);" data-name="price">
+                <i class="up "></i>
+                <i class="down"></i>
+                价钱
+            </a>
+            <div>
+                <select id="sele">
+                    <option value="title">按照文字搜索</option>
+                    <option value="hot">按照热度搜索</option>
+                    <option value="price">按照价格搜索</option>
+                    
+                </select>
+               <div id="num" class="hide">
+                    从<input type="text" id="start">
+                    到<input type="text" id="end">
+               </div>
+               <div id="txt" class="show">
+                    <input type="text" id="txt1">
+               </div>
+               
+
+
+                <button id="search">搜索</button>
+                <button id="init">还原</button>
+            </div>
+        </nav>
+        <ul class="list" id="ul">
+            <!-- <li>
+                <img src="./img/2.jpg" alt="">
+                <p>商品名称:<span>dsdsadsads</span></p>
+                <p>上架时间:<span>2019-10-10</span></p>
+                <p>商品热度:<span>32</span></p>
+                <p>商品价格::<span>200</span></p>
+            </li> -->
+        </ul>
+       
+   </section>
+<!-- <script src="./json/product.js"></script> -->
+<script>
+    // 先获取数据，用.json转化为正常的数据(数组)
+    class Shop {
+        constructor(){
+            this.as = document.querySelectorAll('a')
+            this.ul = document.getElementById('ul')
+            this.sele = document.getElementById('sele')
+            this.search = document.getElementById('search')
+            this.init = document.getElementById('init')
+            this.num = document.getElementById('num')
+            this.txt = document.getElementById('txt')
+            this.start = document.getElementById('start')
+            this.end = document.getElementById('end')
+            this.txt1 = document.getElementById('txt1')
+        }
+        // 所有方法执行
+        allFang(){
+            this.getData()
+        }
+        // 获取数据
+        getData(){
+            fetch('./json/product.json').then(c=>c.json()).then(data=>{
+                let newdata = data.concat()
+                this.xr(newdata)
+                this.px(newdata,this)
+                this.sosuo(this,newdata)
+                this.reduction(this,data)
+            })
+        }
+        // 渲染
+        xr(newdata){
+            let lis = newdata.map(({hot,img,price,time,title})=>{
+                return (`<li>
+                    <img src="${img}" alt="">
+                    <p>商品名称:<span title="${title}">${title.substr(0,6)}</span></p>
+                    <p>上架时间:<span>${time}</span></p>
+                    <p>商品热度:<span>${hot}</span></p>
+                    <p>商品价格:<span>${price}</span></p>
+                </li>`)
+            }).join('')
+            this.ul.innerHTML = lis
+        }
+        // 排序
+        px(newdata,that){
+            this.as.forEach((ele,i)=>{
+                ele.onoff = true
+                ele.onclick = function(){
+                    if(this.onoff){
+                        that.up(this)
+                        that.pxDj(this,newdata)
+                    }else{
+                        that.down(this)
+                        that.pxDjAlter(this,newdata)
+                    }
+                    this.onoff = !this.onoff
+                    that.xr(newdata)
+                }
+            })
+        }
+        // 排序里的点击,正排
+        pxDj(that,newdata){
+            newdata.sort((a,b)=>{
+                if(that.dataset.name === 'time'){
+                    return +new Date(a[that.dataset.name]) - +new Date(b[that.dataset.name])
+                }
+                return a[that.dataset.name] - b[that.dataset.name]
+            })
+        }
+        // 排序里的点击,正排.Alter(反转)
+        pxDjAlter(that,newdata){
+            newdata.sort((a,b)=>{
+                if(that.dataset.name === 'time'){
+                    return +new Date(b[that.dataset.name]) - +new Date(a[that.dataset.name])
+                }
+                return  b[that.dataset.name] - a[that.dataset.name]
+            })
+        }
+
+        // 上箭头
+        up(that){
+            that.children[0].classList.add('activet')
+            that.children[1].classList.remove('activeb')
+        }
+        // 下箭头
+        down(that){
+            that.children[0].classList.remove('activet')
+            that.children[1].classList.add('activeb')
+        }
+        // 搜索啦
+        sosuo(that,newdata){
+            that.sele.onchange = function(){
+                that.showTai(this,that)
+            }
+            this.search.onclick = function(){
+                that.realSosuo(that,newdata)
+            }
+        }
+        // 控制num、txt的显示隐藏
+        showTai(that,_this){
+            if(that.value === 'title'){
+                _this.txt.className = 'show'
+                _this.num.className = 'hide'
+            }else{
+                _this.num.className = 'show'
+                _this.txt.className = 'hide'
+            }
+        }
+        // 搜索.真(点击判断里面的数据,用filter方法过滤出一个新数组)
+        realSosuo(that,newdata){
+            let v1 = that.start.value
+            let v2 = that.end.value
+            let v3 = that.txt1.value
+            if(!v3&&(!v1||!v2)){
+                alert('写点东西吧骚年')
+            }
+            let change = newdata.filter(item=>{
+                if(that.sele.value === 'title'){
+                    return item[that.sele.value].includes(v3)
+                }
+                return item[that.sele.value] < v2 && item[that.sele.value] > v1
+            })
+            that.start.value = that.end.value = that.txt1.value = ''
+            that.xr(change)
+        }
+        // 点击还原
+        reduction(that,data){
+            this.init.onclick = function(){
+                that.xr(data)
+            }
+        }
+    }
+
+
+    let sp = new Shop()
+    sp.allFang()
+
+</script>
+</body>
+</html>
