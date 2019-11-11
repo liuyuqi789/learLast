@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 一个函数,肯定拥有一个call方法,改变this的指向
+        // 如果有多个call,最后一个call第一个参数一定会调用,第二个参数才是改变this
+        // 那么怎么重写call呢?
+        // 首先,fn的构造函数是 Function,所以把方法挂在Function上
+        Function.prototype.myCall = function(that,...arg){
+            // 其次,要把这个this给到传进来的参数新建的这个方法
+            // 如果这个值是null undefined呢?
+            if(that === null || that === undefined){
+                that = window
+            }
+            // 如果这个值是简单类型呢?
+            let type = typeof that
+            switch(type){
+                case 'number':
+                that = new Number(that)
+                break
+                case 'string':
+                that = new String(that)
+                break
+                case 'boolean':
+                that = new Boolean(that)
+                break
+            }
+            // 引用类型就直接用就可以啦
+            that.di = this
+            // 传进来的值执行,再把传进来的参数放到fn里
+            that.di(...arg)
+        }
+        // 这个函数是Function的实例
+        function fn(a,b){
+            // 这个方法只能在用的时候删掉
+            delete this.di
+            console.log(this,a+b)
+        }
+        fn.myCall([],1,2)
+    </script>
+</body>
+</html>

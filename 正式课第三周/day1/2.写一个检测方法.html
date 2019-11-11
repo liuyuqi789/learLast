@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 检测的方法,用typeof 的话会有瑕疵,数组,null都是object
+        class Typ {
+            static ty(data){
+                let ops = Object.prototype.toString
+                let obj = {
+                    null:'Null',
+                    array:'Array',
+                    object:'Object'
+                }
+                if(typeof data !== 'object'){
+                    // 如果是基本数据类型,直接返回
+                    return typeof data 
+                }else{
+                    for(let cy in obj){
+                        if(ops.call(data) === `[object ${obj[cy]}]`){
+                            return cy
+                        }
+                    }
+                }
+            }
+        }
+        console.log(Typ.ty([]))
+    </script>
+</body>
+</html>

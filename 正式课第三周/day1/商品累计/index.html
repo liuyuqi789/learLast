@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="price.css" />
+	</head>
+
+	<body onselectstart="return false;">
+		<div class="wrap">
+			<div class="box">
+				<ul class="list">
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>12.5元 </strong> 小计：<strong id="zong">0元</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>10.5元 </strong> 小计：<strong id="zong">0元</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>8.5元 </strong> 小计：<strong id="zong">0元</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>8元 </strong> 小计：<strong id="zong">0元</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>14.5元 </strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+				</ul>
+				<div class="info">
+					<span>商品公合计：<em>0</em>件</span>
+					<span>共花费了：<em id="huafei">0</em>元</span>
+					<br />
+					<br />
+					<span>其中最贵的商品单价是：<em id="zuigui">0</em>元</span>
+				</div>
+			</div>
+		</div>
+		<script>
+			class spLj {
+				constructor(){
+					this.lis = document.querySelectorAll('.list li')
+					this.info = document.querySelector('.info')
+					this.list = document.getElementsByClassName('list')[0]
+					this.zongji = document.querySelectorAll('#zong')
+					this.huafei = document.getElementById('huafei')
+					this.zuigui = document.getElementById('zuigui')
+				}
+				// 总的
+				fq(){
+					let that = this
+					for(let i = 0; i < this.lis.length ; i++){
+						let num = 0
+		        		let em = this.list.getElementsByTagName('em');
+						let jian = this.lis[i].firstElementChild
+						let jia = this.lis[i].lastElementChild.previousElementSibling
+						let span = this.lis[i].lastElementChild
+						let xiaoji = span.lastElementChild
+						let danja = span.firstElementChild
+						let daja = danja.innerText
+						let dajian = danja.innerText
+						let jianshus = this.info.firstElementChild
+						let jianshu = jianshus.firstElementChild
+
+						// 点击加号
+						jia.onclick = function(){
+							that.jia(that,num,jia,xiaoji,jianshu,huafei,em,zuigui,daja,that.zongji)
+						}
+
+						// 点击减号
+						jian.onclick = function(){
+							that.jian(that,num,jia,xiaoji,jianshu,huafei,em,zuigui,daja,that.zongji)
+						}
+					}
+				}
+				// 加号点击
+				jia(that,num,jia,xiaoji,jianshu,huafei,em,zuigui,daja,zongji){
+					jia.previousElementSibling.innerText = ++num
+					xiaoji.innerText = num * parseFloat(daja)
+					// 拍脑袋想出来的,有点脏
+					jianshu.innerText = Number(em[0].innerText) + Number(em[1].innerText) + Number(em[2].innerText) + Number(em[3].innerText) + Number(em[4].innerText)
+					huafei.innerText = parseFloat(zongji[0].innerText) + parseFloat(zongji[1].innerText) + parseFloat(zongji[2].innerText) + parseFloat(zongji[3].innerText)
+					that.fn(em,zuigui)
+				}
+
+				// 减号点击
+				jian(that,num,jia,xiaoji,jianshu,huafei,em,zuigui,daja,zongji){
+					if(num<=0)num = 1
+					jian.nextElementSibling.innerText = --num
+					xiaoji.innerText = num * parseFloat(dajian)
+					// 拍脑袋想出来的,还是有点脏
+					jianshu.innerText = Number(em[0].innerText) + Number(em[1].innerText) + Number(em[2].innerText) + Number(em[3].innerText) + Number(em[4].innerText)
+					huafei.innerText = parseFloat(zongji[0].innerText) + parseFloat(zongji[1].innerText) + parseFloat(zongji[2].innerText) + parseFloat(zongji[3].innerText)
+					that.fn(em,zuigui)
+				}
+				// 判断哪个商品单价高(拍脑袋版)
+				fn(em,zuigui){
+					if(em[4].innerHTML > 0){
+						zuigui.innerText = '14.5'
+					}else if(em[0].innerText > 0){
+						zuigui.innerText = '12.5'
+					}else if(em[1].innerText > 0){
+						zuigui.innerText = '10.5'
+					}else if(em[2].innerText > 0){
+						zuigui.innerText = '8.5'
+					}else if(em[3].innerText > 0){
+						zuigui.innerText = '8'
+					}
+				}
+			}
+			let sp = new spLj()
+			sp.fq()
+		</script>
+	</body>
+
+</html>
