@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 如果要拿到字符串中的单个数字
+        let str = '1zsd2354awefdaw123we54e25'
+        let ary = []
+        for(let i = 0 ; i < str.length ; i++){
+            if(!isNaN(parseFloat(str[i]))){
+                ary.push(str[i])
+            }
+        }
+        console.log(ary)
+        // 如果要拿到字符串中的连续数字
+        let str1 = '1zsd2354awefdaw123we54e25'
+        let ary1 = []
+        let temp = ''
+        for(let i = 0 ; i < str1.length ; i++){
+            if(!isNaN(parseFloat(str1[i]))){
+                // 拼接那些数字
+                temp += str1[i]
+            }else{
+                if(temp){
+                    // 如果temp不为空,那么就把之前的temp填进去,并清空
+                    ary1.push(temp)
+                    temp = ''
+                }
+            }
+        }
+        // 最后一个搞不到怎么办?再来一遍就完事了
+        if(temp){
+            ary1.push(temp)
+            temp = ''
+        }
+        console.log(ary1)
+    </script>
+</body>
+</html>

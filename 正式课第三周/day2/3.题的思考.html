@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 16-108岁才能注册(返回true)
+        // 如果不加开头结尾,就会变成含有这些数字的都可以
+        // 如果不加括号,就会变成以(1[0-6])开头或以(10[0-8])结尾
+        let reg = /^(1[0-6]|[2-9][0-9]|10[0-8])$/
+        let str = '92'
+        reg.test(str)
+        
+        // 计算出夏磊字符字节,英文是一个字节,中文是2个字节
+        let str1 = '百因必有果,你的报应就是我!hehe'
+        // 先把英文和中文区分开来,然后中文+2,英文+1
+        let num = 0
+        // 方法一
+        // 如果是英文的话,就让他++
+        for(let i = 0 ; i < str1.length ; i++){
+            if(/[a-z,!]/.test(str1[i])){
+                num ++
+            }else{
+                num += 2
+            }
+        }
+
+        // 方法二
+        // 如果是中文的话,就让他+=2
+        // for(let i = 0 ; i < str1.length ; i++){
+        //     if(/[\u4e00-\u9fa5]/.test(str1[i])){
+        //         num += 2
+        //     }else{
+        //         num++
+        //     }
+        // }
+        console.log(num)
+    </script>
+</body>
+</html>
