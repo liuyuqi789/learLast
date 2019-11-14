@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+       把下面str的name，age，say换成obj中的value值
+    */  
+    let obj = {
+        name:'小明',
+        age:18,
+        say:'好好学习，天天向上'
+    }  
+    let str = '我的名字叫{name},年龄是{age}岁,我想说:{say}';
+    for(let attr in obj){
+        let cy = new RegExp(attr,'g')
+        let st = str.replace(cy,($0)=>{
+            return obj[attr]
+        })
+        str = st
+    }
+    console.log(str)
+
+
+    /*
+        计算下面字符串中哪个字符出现的次数最多,它是谁，出现了多少次
+    */
+    
+    let str2 = 'hd82nxa89a3axdma2naejaaxaa8n2xdanja2cah2hnadhioamwajexnad8mdahiodn';
+
+    // 拍脑袋
+    // 数字组 2893
+    let sz = str2.match(/\d/g)
+    let sz1 = sz.join('').match(/2/g).length // 5
+    let sz2 = sz.join('').match(/8/g).length // 4
+    let sz3 = sz.join('').match(/9/g).length // 1
+    let sz4 = sz.join('').match(/3/g).length // 1
+    console.log(sz)
+    console.log(sz1)    
+    console.log(sz2)    
+    console.log(sz3)    
+    console.log(sz4)    
+    // 字母组 hdnxamejciow
+    let zm = str2.match(/[a-zA-z]/g)
+    let zm1 = zm.join('').match(/h/g).length // 5
+    let zm2 = zm.join('').match(/d/g).length // 7
+    let zm3 = zm.join('').match(/n/g).length // 7
+    let zm4 = zm.join('').match(/x/g).length // 5
+    let zm5 = zm.join('').match(/a/g).length // 17
+    let zm6 = zm.join('').match(/m/g).length // 3
+    let zm7 = zm.join('').match(/e/g).length // 2
+    let zm8 = zm.join('').match(/j/g).length // 3
+    let zm9 = zm.join('').match(/c/g).length // 1
+    let zm10 = zm.join('').match(/i/g).length // 2
+    let zm11 = zm.join('').match(/w/g).length // 1
+    let zm12 = zm.join('').match(/o/g).length // 2
+    console.log(zm)
+    console.log(zm1)
+    console.log(zm2)
+    console.log(zm3)
+    console.log(zm4)
+    console.log(zm5)
+    console.log(zm6)
+    console.log(zm7)
+    console.log(zm8)
+    console.log(zm9)
+    console.log(zm10)
+    console.log(zm11)
+    console.log(zm12)
+    // 最后结果是 a 
+
+</script>
+</body>
+</html>
