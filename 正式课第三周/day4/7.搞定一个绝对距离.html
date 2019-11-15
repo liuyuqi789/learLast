@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            position: relative;
+            padding: 100px;
+            background: pink;
+            border: 10px solid yellow;
+        }
+        #box1{
+            position: relative;
+            padding: 100px;
+            background: green;
+            border: 10px solid yellow;
+        }
+        #box2{
+            position: absolute;
+            padding: 100px;
+            background: purple;
+            border: 10px solid yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="box1">
+            <div id="box2"></div>
+        </div>
+    </div>
+    <script>
+        // 唯一不会改变的是啥子?当前元素距离最边上的位置
+        // 所以要写一个方法,保证当前元素的长和宽一路到顶
+        // 步骤: 先搞定当前元素到父级的距离,然后当前元素的父级变成当前元素,然后再找当前元素的父级的父级(我这是何苦嘞- -)直到null
+        let newBox = box2
+        let l = 0
+        // 为什么要用while嘞?因为不知道循环几次
+        while(newBox){
+            // 当前元素的距离父级的距离和父级距离父级的父级的距离,还得算上边框
+            l += (newBox.offsetLeft+newBox.clientLeft)
+            // 让当前元素等于父级的元素
+            newBox = newBox.offsetParent
+        }
+        // 因为不能算子元素的边框
+        l = l - box2.clientLeft
+        console.log(l)
+
+        // 来个方法把= =啊好累
+        class lei {
+            haolei(newBox){
+                let l = 0
+                let t = 0
+                let nb = newBox
+                while(newBox){
+                    l += (newBox.offsetLeft+newBox.clientLeft)
+                    t += (newBox.offsetTop+newBox.clientTop)
+                    newBox = newBox.offsetParent
+                }
+                l = l - nb.clientLeft
+                t = t - nb.clientTop
+                return {
+                    l,t
+                }
+            }
+        }
+        let ly = new lei
+        console.log(ly.haolei(box2))
+    </script>
+</body>
+</html>

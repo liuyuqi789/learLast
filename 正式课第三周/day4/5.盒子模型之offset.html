@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            position: relative;
+            padding: 100px;
+            background: pink;
+            border: 10px solid yellow;
+        }
+        #box1{
+            position: relative;
+            padding: 100px;
+            background: green;
+            border: 10px solid yellow;
+        }
+        #box2{
+            position: absolute;
+            padding: 100px;
+            background: purple;
+            border: 10px solid yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="box1">
+            <div id="box2"></div>
+        </div>
+    </div>
+    <script>
+        // offsetLeft , offsetTop 当前元素距离父级元素的距离,offsetWidth , offsetHeight 算上边框,这个元素多长\高
+        // offsetLeft / offsetTop 不稳定,因为父元素会改变
+        // offsetParent 是个对象 , 是当前元素的父元素
+        console.log(box2.offsetLeft) // 100
+        console.log(box2.offsetTop) // 100
+        console.log(box2.offsetWidth) // 220
+        console.log(box2.offsetHeight) // 220
+        console.log(box2.offsetParent) // div box1
+    </script>
+</body>
+</html>

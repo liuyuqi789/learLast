@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        // 正常如果用 box.style.width是获取不到的,是一个空字符串,所以要用非常手段
+        // 这种方法是获取box中的计算后属性,是字符串,记得要转数字,就算是隐藏的也能获取
+        console.log(getComputedStyle(box).width) // 200px
+    </script>
+</body>
+</html>

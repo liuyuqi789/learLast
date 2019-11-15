@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 200px;
+            height: 200px;
+            background: pink;
+            border: 10px solid yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        // clientLeft , clientTop 边框的距离,clientWidth , clientHeight 不算上边框(真硌掰),这个元素多长\高
+        console.log(box.clientLeft) // 10
+        console.log(box.clientTop) // 10
+        console.log(box.clientHeight) // 200
+        console.log(box.clientWidth) // 200
+    </script>
+</body>
+</html>

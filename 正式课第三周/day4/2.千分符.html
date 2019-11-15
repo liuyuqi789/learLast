@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 千分符就是 1,000,000
+        let str = '1000000'
+        // 正则方法
+        s = str.replace(/(\d)(?=(\d{3})+$)/g,'$1,');
+        console.log(s)
+        // 常规方法
+        let temp = ''
+        let num = 0
+        for(let i = str.length - 1 ; i >= 0 ; i--){
+            if((temp.length-num)%3){
+                temp += str[i]
+            }else{
+                temp +=  ',' + str[i]
+                num++
+            }
+        }
+        temp = temp.substring(1)
+            temp = temp.split('').reverse().join('')
+        console.log(temp)
+    </script>
+</body>
+</html>

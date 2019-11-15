@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 正则切成key value的样子
+        let str = 'https://www.baidu.com/s?rsv_spt=1&rsv_iqid=0xe067b8470002346d&issp=1&f=8&rsv_bp=1'
+        let obj = {}
+        str.replace(/([\w]{1,10})=([a-z0-9]){1,}/g,(...arg)=>{
+            let a = arg[1]
+            let b = arg[2]
+            obj[a] = b
+        })
+        console.log(obj)
+    </script>
+</body>
+</html>
