@@ -58,7 +58,7 @@
             // 然后拼接字符串,把这些数据都放到页面中,排序的是  新数组
             let lis = newdata.map(({title,img,time,hot,price})=>{
                 return (`<li>
-                <img src="${img}" alt="">
+                <img data-src="${img}" alt="">
                 <p title="${title}">商品名称:<span>${title.substr(0,6)}</span></p>
                 <p>上架时间:<span>${time}</span></p>
                 <p>商品热度:<span>${hot}</span></p>
@@ -70,49 +70,9 @@
         // 执行方法保证页面的渲染
         render(newdata)
 
-        // 获取所有的a,点击排序
-        const as = document.querySelectorAll('a')
-        // 循环a绑定点击事件
-        as.forEach((ele,i)=>{
-            // 搞个开关
-            ele.onoff = true
-            ele.onclick = function(){
-                // 排谁的序？newdata的,因为已经把旧数组给了新的数组,所以不用担心,那么,如何确定拿到的是哪个数据?
-                // 给a标签绑定一个自定义属性,跟要排序的名称保持一致,然后,因为newdata是数组,所以拿到的数组下的
-                // 第索引个就是当前所需要的值
-                // 开关true,正排
-                if(this.onoff){
-                    // 上下小箭头变红
-                    this.children[0].classList.add('activet')
-                    this.children[1].classList.remove('activeb')                  
-                    newdata.sort((a,b)=>{
-                    // 如果是时间的话,排不了,那怎么办,就把时间转化成时间戳,不赋值的话不会有影响
-                    // 加加号是为了转化为数字
-                    if(this.dataset.name === 'time'){
-                        return +new Date(a[this.dataset.name]) - +new Date(b[this.dataset.name])
-                    }
-                    // 否则直接比就行了
-                    return a[this.dataset.name] - b[this.dataset.name]
-                    })
-                }else{
-                    // 同上
-                    this.children[1].classList.add('activeb')
-                    this.children[0].classList.remove('activet')  
-                    newdata.sort((a,b)=>{
-                    // 如果是时间的话,排不了,那怎么办,就把时间转化成时间戳,不赋值的话不会有影响
-                    // 加加号是为了转化为数字
-                    if(this.dataset.name === 'time'){
-                        return  +new Date(b[this.dataset.name]) - +new Date(a[this.dataset.name])
-                    }
-                    // 否则直接比就行了
-                    return  b[this.dataset.name] - a[this.dataset.name]
-                    })
-                }
-                // 执行方法,渲染进去
-                this.onoff = !this.onoff
-                render(newdata)
-            }
-        })
+        // 懒加载
+        const li = document.querySelectorAll('#ul li')
+        window.onload
     })
     
 </script>

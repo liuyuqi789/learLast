@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+
+<script>
+    // 加载事件 onload , 加载失败 onerror
+    const img = document.createElement('img')
+    img.src = 'img/1x.jpg'
+    img.onload = function(){
+        console.log('okay')
+    }
+    img.onerror = function(){
+        img.src = 'img/timg.jpg'
+    }
+    box.appendChild(img)
+
+
+    
+</script>
+</body>
+</html>

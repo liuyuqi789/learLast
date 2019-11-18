@@ -89,6 +89,9 @@ nav a .activeb {
 }
 .list li img {
   width: 204px;
+  height: 200px;
+  opacity: 0;
+  transition: 0.5s;
 }
 .list li p {
   width: 188px;

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+}
+#box{
+    width:1280px;
+    height:5px;
+    border:1px solid hotpink;
+}
+#box2{
+    height:5px;
+    width:0%;
+    background:rebeccapurple;
+    transition: .2s;
+}
+</style>
+</head>
+<body id="body">
+    <div id="box">
+        <div id="box2"></div>
+    </div>
+
+<script>
+    let ary = [
+        'https://goss.veer.com/creative/vcg/veer/800water/veer-159497091.jpg',
+        'https://goss.veer.com/creative/vcg/veer/800water/veer-152360031.jpg',
+        'https://goss.veer.com/creative/vcg/veer/800water/veer-153725613.jpg',
+        'https://goss.veer.com/creative/vcg/veer/800water/veer-153779846x.jpg'
+    ];
+    let num = 0
+    ary.forEach(item=>{
+        // 前戏
+        let img = document.createElement('img')
+        img.src = item
+        body.append(img)
+        // 开始正题
+        img.onload = function(){
+            // 如果img加载完了,就开始让box2的width变换
+            box2.style.width = 25 * (++num) + '%'
+            if(25*num == 100){
+                // 百分百的话就变成某炎粉
+                body.style.background = 'pink'
+                // 慢点看得舒服些
+                body.style.transition = '2s'
+            }
+        }
+        img.onerror = function(){
+            // 有一个没加载完怎么办？那就再执行一遍加载呗
+            img.onload()
+            img.src = ary[3].split('x').join('')
+        }
+    })
+
+</script>
+</body>
+</html>
