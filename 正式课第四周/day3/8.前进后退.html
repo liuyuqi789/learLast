@@ -31,8 +31,12 @@
 <script>
     /*
         作业:
-            1.做到切换按键的时候不卡 (想法:每次摁下键盘之后清掉,未成立,因为这样无法长按)
+            1.做到切换按键的时候不卡 √
+                (第一个想法:每次摁下键盘之后清掉,未成立,因为这样无法长按)
+                (第二个想法:每一个都绑上定时器,抬起的时候,清掉定时器,半成立,因为定时器速度过快,无法确定是否会有卡顿)
             2.2个按键按下时斜着跑 √
+                (第一个想法:摁住shift+键位组合,成立,但是代码冗余)
+                (第二个想法:看过同学的思路,用函数改写,偶尔会抖,仍不完善)
     */
 
     document.onkeydown = function(ev){
@@ -40,56 +44,48 @@
             // 上下左右
             // s,向下走
             case 87:
-                box.style.top = box.offsetTop - 15 + 'px'
+                moveS(box,'top','offsetTop',-15)
                 break;
             // w,向上走
             case 83:
-                box.style.top = box.offsetTop + 15 + 'px'
+                moveS(box,'top','offsetTop',15)
                 break;
             // a,向左走
             case 65:
-                box.style.left = box.offsetLeft - 15 + 'px'
+                moveS(box,'left','offsetLeft',-15)
                 break;
             // d,向右走
             case 68:
-                box.style.left = box.offsetLeft + 15 + 'px'
-                break;
-
-            // 发射子弹
-            case 13:
-                let div = document.createElement('div')
-                div.className = 'box2'
-                box.append(div)
-                setTimeout(() => {
-                    div.style.top = -1000 + 'px'
-                })
-                // 删掉子弹
-                setTimeout(()=>{
-                    box.removeChild(div)
-                },1000)
+                moveS(box,'left','offsetLeft',15)
                 break;
         
             default:
                 break;
         }
-        // 左上左下右上右下
-        // 左下
-        if(ev.keyCode === 87 && ev.shiftKey){
-            box.style.top = box.offsetTop - 15 + 'px'
-            box.style.left = box.offsetLeft - 15 + 'px'
-        }else if(ev.keyCode === 68 && ev.shiftKey){
-            // 右下
-            box.style.top = box.offsetTop - 15 + 'px'
-            box.style.left = box.offsetLeft + 15 + 'px'
-        }else if(ev.keyCode === 65 && ev.shiftKey){
-            // 左上
-            box.style.top = box.offsetTop + 15 + 'px'
-            box.style.left = box.offsetLeft - 15 + 'px'
-        }else if(ev.keyCode === 83 && ev.shiftKey){
-            // 右上
-            box.style.top = box.offsetTop + 15 + 'px'
-            box.style.left = box.offsetLeft + 15 + 'px'
+    }
+    let ary = []
+    // 平滑:抬起就清掉定时器
+    document.onkeyup = function(){
+        fn(ary)
+    }
+    // 清掉定时器
+    function fn(ary){
+        if(ary.length){
+            ary.forEach(item=>{
+                // ary里的每一项都是一个定时器
+                clearInterval(item)
+            })
         }
+        // 因为每次都push,所以每次都要清空ary
+        ary.length = 0
+    }
+    // 移动
+    function moveS(hezi,yangshi,offset,sudu){
+        clearInterval(hezi[yangshi])
+        hezi[yangshi] = setInterval(()=>{
+            hezi.style[yangshi] = hezi[offset] + sudu + 'px'
+        },20)
+        ary.push(hezi[yangshi])
     }
 </script>
 </body>
