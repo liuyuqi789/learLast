@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #box{
+        width:200px;
+        height:200px;
+        background: slateblue;
+        position: absolute;
+        left:0;
+        top:0;
+        cursor: move;
+    }
+    </style>
+</head>
+<body style="height: 3000px">
+    <div id="box"></div>
+    <button id="btn">按钮</button>
+    <button id="btn2">按钮2</button>
+<script>
+    // 鼠标点下 onmousedown,抬起onmouseup,长按的话
+    function chang(cb){
+        btn.onmousedown = function(){
+            // 存个时间
+            let time = +new Date
+            timer = setInterval(()=>{
+                // 再来一个
+                let now = new Date
+                // 如果摁下了,当前的时间减去之前的时间大于1秒了,才会执行,继续长按的话,颜色慢慢变淡
+                if(now - time > 1000){
+                    cb()
+                }
+            })
+        }
+        btn.onmouseup = function(){
+            clearInterval(timer)
+        }
+    }
+    let num = 1
+    chang(function(){
+        num -= 0.01
+        box.style.opacity = num
+    })
+    box.onmousemove = function(ev){
+        // 为了能在移动时鼠标放到中间
+        this.style.left = ev.clientX - this.clientWidth/2 + 'px'
+        this.style.top = ev.pageY - this.clientHeight/2 + 'px'
+    }
+</script>
+</body>
+</html>

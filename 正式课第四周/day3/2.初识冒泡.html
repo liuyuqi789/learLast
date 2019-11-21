@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+        div{
+            padding:100px;
+        }
+        #box{
+            background: red;;
+        }
+        #box1{
+            background:slateblue;
+        }
+        #box2{
+            background:teal;
+        }
+        #btn{
+            background:tomato;
+        }
+        </style>
+<body>
+    <div id="box">
+        <div id="box1">
+            <div id="box2">
+                <button id="btn">按钮</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 冒泡就是 如果子元素跟父元素绑了同一个事件，那么子元素事件执行会一步一步的从里到外执行父元素事件,知道window
+        // 如何阻止?
+        btn.onclick = function(ev){
+            // 两种方法皆可
+            // ev.cancelBubble = true
+            ev.stopPropagation();
+            alert('btn')
+        }
+        box1.onclick = function(){
+            alert('box1')
+        }
+        box2.onclick = function(){
+            alert('box2')
+        }
+        box.onclick = function(){
+            alert('box')
+        }
+    </script>
+</body>
+
+</html>

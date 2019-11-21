@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">点击创建</button>
+    <ul id="ul">
+        <li>1</li>
+    </ul>
+    <script>
+        // 冒泡的好处是什么?如果你创建东西,创建的时候不能一下一下绑定事件,因为会覆盖
+        // 所以要一下绑到父元素上,这样所有的子元素都会有绑定事件
+        let lis = document.getElementsByTagName('li')
+        let num = 1
+
+        btn.onclick = function(){
+            ul.innerHTML += `<li>${(++num)}</li>`
+        }
+
+        ul.onclick = function(ev){
+            // alert(ev.target.innerHTML)
+            if(ev.target.targName = 'LI'){
+                ev.target.style.background = 'red'
+            }
+        }
+    </script>
+</body>
+</html>

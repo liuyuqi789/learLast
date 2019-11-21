@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background: tomato;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">显示</button>
+    <div id="box"></div>
+</body>
+    <script>
+        // 想要写一个点击显示,显示出来,点击window,就消失
+        btn.onclick = function(ev){
+            // 但是冒泡了,点击btn的同时,window的onclick也会执行
+            box.style.display = 'block'
+            // 所以要阻止冒泡
+            ev.stopPropagation();
+        }
+        window.onclick = function(){
+            box.style.display = 'none'
+        }
+    </script>
+</html>

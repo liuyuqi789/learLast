@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="txt">
+    <ul id="ul"></ul>
+    <script>
+        // 键盘事件 onkeydown 键盘按下 onkeyup 键盘抬起
+        // 特殊按键 ev.ctrlKey 摁住ctrl就是true
+        //         ev.shiftKey ev.altKey
+
+        txt.onkeyup = function(ev){
+            if(ev.keyCode === 13 && ev.ctrlKey){
+                ul.innerHTML += '<li>' + txt.value + '</li>'
+                txt.value = ''
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            padding: 100px;
+        }
+
+        #box {
+            background: red;
+            ;
+        }
+
+        #box1 {
+            background: slateblue;
+        }
+
+        #box2 {
+            background: teal;
+        }
+
+        #btn {
+            background: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="box1">
+            <div id="box2">
+                <button id="btn">按钮</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 事件绑定,因为带on的事件方式是dom0中的,不够强大
+        // 所以 dom2 出现了 
+        // addEventListerner('不带on的事件名',事件函数,布尔值|对象)
+        // 布尔值 true捕获,false冒泡
+
+        // 冒泡知道了,是从里到外 捕获就是从外到里
+        // 点击哪个就是哪个,正常是从捕获->目标->冒泡,如果写的是冒泡,那么目标是从冒泡开始到捕获,别的仍然是从捕获开始
+        // 如果外面也有个冒泡,仍然是从捕获开始,冒泡放到上面也没用
+        box.addEventListener('click',function(){
+            alert('box_冒泡')
+        },false)
+        box.addEventListener('click',function(){
+            alert('box_捕获')
+        },true)
+
+        box1.addEventListener('click',function(){
+            alert('box1');
+        },false);
+        box2.addEventListener('click',function(){
+            alert('box2');
+        },false);
+
+
+        btn.addEventListener('click',function(){
+            alert('btn_冒泡');
+        },false);
+        btn.addEventListener('click',function(){
+            alert('btn_捕获');
+        },true);
+
+    
+        box1.addEventListener('click',function(){
+            alert('box1');
+        },true);
+        box2.addEventListener('click',function(){
+            alert('box2');
+        },true);
+    </script>
+</body>
+
+</html>
