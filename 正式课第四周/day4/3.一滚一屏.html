@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+}
+html,body{
+    overflow: hidden;
+}
+#ul{
+    position: absolute;
+    list-style: none;
+    top:0;
+    left:0;
+    transition: 1s;
+}
+</style>
+</head>
+<body>
+<ul id="ul">
+
+</ul>
+<script>
+    let ary = ['blue','yellow','chocolate','hotpink','skyblue']
+    let w = window.innerWidth
+    let h = window.innerHeight
+
+    let html = ary.map(item=>`<li style="width:${w}px;height:${h}px;background:${item};"></li>`) 
+    ul.innerHTML = html
+
+    let num = 0
+
+    // 在火狐也适用
+    function gundong(obj,cb){
+        if(obj.onmousewheel === null){
+            obj.onmousewheel = lister
+        }else{
+            // 火狐必须用dom2级事件
+            obj.addEventListener('DOMMouseScroll',lister)
+        }
+        function lister(ev){
+            let o = false
+            if(ev.wheelDelta){
+                o = ev.wheelDelta > 0 ? true : false
+            }else{
+                o = ev.detail > 0 ? false : true
+            }
+            cb.call(this,o)
+        }
+    }
+
+    // 节流
+    function jieliu(cb,time){
+        let newTime = 0
+        return function(...arg){
+            let nowTime = +new Date
+            if(nowTime - newTime > time){
+                cb.call(this,...arg)
+            }
+            newTime = newTime
+        }
+    }
+    
+    gundong(document,jieliu(gd,1000))
+    
+    // 根据num判断是第几个
+    function gd(o){
+        if(o){
+            num --
+            if(num<0){
+                num=0
+            }
+        }else{
+            num++
+            if(num>ary.length-1){
+                num = ary.length - 1
+            }
+        }
+        ul.style.top = -num * h + 'px'
+    }
+</script>
+</body>
+</html>

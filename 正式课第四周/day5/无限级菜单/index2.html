@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			html {
+
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				margin: 0px;
+				width: 100%;
+				height: 100%;
+			}
+			.main {
+				width: 100%;
+				height: 100%;
+				background: url(./image/bg.png) no-repeat;
+				background-size: 100% 100%;
+				overflow: hidden;
+			}
+			.logo {
+				display: block;
+				width: 200px;
+				height: 55px;
+				
+				margin: 20px auto;
+			}
+			.tree{
+				height:100%;
+				overflow: auto;
+			}
+			ul{
+				list-style: none;
+				font-size: 22px;
+				color: #8c949c;
+				font-weight: bold;
+				width:100%;
+				/* height:100%; */
+			}
+
+			ul li {
+				position: relative;
+				padding-left: 10px;
+				/* height:32px; */
+				overflow: hidden;
+			}
+
+			ul li div{
+				height: 98%;
+				/* width: 1px; */
+				border-left: 1px dotted #ccc;
+				/* position: absolute; */
+				/* left: 34px; */
+				/* top: 18px; */
+				/* margin-left :4px; */
+				line-height:32px;
+			}
+
+			ul ul{
+				display: none;
+			}
+
+			ul li span {
+				display: block;
+				line-height: 32px;
+				padding-left: 15px;
+				background: url(./image/icon.png) no-repeat left 500px;
+				width:20px;
+				height:20px;
+				float : left;
+			}
+			
+			ul li span.add {
+				background-position: 0px -32px;
+			}
+			ul li span.line {
+				background-position: 0px 11px;
+			}
+
+
+			.tree {
+				margin-left: 300px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<a href="#" class="logo"></a>
+			<div class="tree">
+				<ul id="oUl">
+					<!-- <li>
+						<span class="add"></span>
+						<div>第一级菜单</div>
+						<ul>
+							<li>
+								<span class="line"></span>
+								<div>第二级菜单</div>
+							</li>
+							<li>
+								<span class="line"></span>
+								<div>第二级菜单</div>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<span class="line"></span>
+						<div>第一级菜单</div>
+					</li>
+					<li>
+						<span class="line"></span>
+						<div>第一级菜单</div>
+					</li> -->
+				</ul>
+			</div>
+
+		</div>
+	</body>
+<script>
+    // 转换思路:一层一层的先加进去,然后再判断有没有,没有就删掉。未达成,因为如果循环的话会变成加两个ul,ul里面有两个li,在获取数据的时候做,会全放到最后一个
+	class caidan {
+		constructor(){
+            this.oUl = document.getElementById('oUl')
+		}
+		// 获取数据
+		getData(){
+            let that = this
+			fetch('data.json').then(a=>a.json()).then(data=>{
+				data.forEach(ele=>{
+                    that.doData(ele)
+                    that.diyi(that,ele)
+				})
+			})
+		}
+		// 整理数据
+		doData(ele){
+            let that = this
+            // let ary2 = []
+            // let ary3 = []
+            // let ary4 = []
+            // let ary5 = []
+            // 第二层
+			ele.child.forEach(ele2=>{
+                // 第三层
+                if(ele2.child){
+                    ele2.child.forEach(ele3=>{
+                        // ary3.push(ele3.title)
+                        // 第四层
+                        if(ele3.child){
+                            ele3.child.forEach(ele4=>{
+                                // ary4.push(ele4.title)
+                                // 第五层
+                                if(ele4.child){
+                                    ele4.child.forEach(ele5=>{
+                                        // ary5.push(ele5.title)
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+                // ary2.push(ele2.title)
+            })
+		}
+        // 总数据
+        diyi(that,ele){
+            // 第一层
+            let li = document.createElement('li')
+            let span = document.createElement('span')
+            span.className = 'add'
+            let div = document.createElement('div')
+            div.innerText = ele.title
+            // 第一层的
+            li.append(span)
+            li.append(div)
+            // 第二层
+            ele.child.forEach(ele2=>{
+                that.dier(ele2,li)
+            })
+            
+        }
+        // 第二层
+        dier(ele2,li){
+            // 第二层
+            let ul2 = document.createElement('ul')
+            let li2 = document.createElement('li')
+            let span2 = document.createElement('span')
+            let div2 = document.createElement('div')
+            span2.className = 'line'
+            div2.innerText = ele2.title
+            li2.append(span2)
+            li2.append(div2)
+            ul2.append(li2)
+            li.append(ul2)
+            this.oUl.append(li)
+            // this.oUl.append(li)
+        }
+        // 第三层
+        disan(ul3,ele3){
+            let li3 = document.createElement('li')
+            let span3 = document.createElement('span')
+            span3.className = 'line'
+            let div3 = document.createElement('div')
+            div3.innerText = ele3.title
+            li3.append(span3)
+            li3.append(div3)
+            ul3.append(li3)
+        }
+	}
+	let cd = new caidan
+    cd.getData()
+    
+</script>
+</html>	
+/*
+li.append(span)
+            li.append(div)
+            this.oUl.append(li)
+*/

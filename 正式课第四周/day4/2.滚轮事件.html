@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#box{
+    width: 100px;
+    height:100px;
+    background: lightseagreen;
+    position: absolute;
+    top:0;
+    left:0;
+}
+</style>
+</head>
+<body _style="height:3000px">
+    <div id="box"></div>
+<script>
+    /*
+        onscroll  滚动条改变的时候触发
+        onmousewheel  滚轮事件
+
+            ev.wheelDelta  检测滚动的方向
+                大于0就是向上的
+                小于0就是向下的
+
+
+        FF：DOMMouseScroll 
+            注意这个事件只能使用事件绑定的方式去写
+            ev.detail
+                大于0就是向下的
+                小于0就是向上的
+
+
+    */ 
+
+
+    // 一般用onscroll,只是监听的滚动条事件,而onmousewheel是滚轮事件
+    // document.onmousewheel = function(ev){
+    //     if(ev.wheelDeltaY>0){
+    //         box.style.top = box.offsetTop - 10 + 'px'
+    //     }else{
+    //         box.style.top = box.offsetTop + 10 + 'px'
+    //     }
+    // }
+
+    // 当用火狐浏览器的时候,没有onmousewheel需要用dom2事件来使用
+    function gundong(obj,cb){
+        // 有的话,就是谷歌
+        if(obj.onmousewheel === null){
+            obj.onmousewheel = listen
+        }else{
+            obj.addEventListener('DOMMouseScroll',listen)
+        }
+        function listen(ev){
+            let o = false
+            if(ev.wheelDelta){
+                o = ev.wheelDelta > 0 ? false : true
+            }else{
+                o = ev.detail > 0 ? true : false
+            }
+            cb.call(this,o)
+        }
+    }
+    gundong(box,function(o){
+        // 这是个对象,所以里面的单位是有px的
+        let {width,height} = getComputedStyle(box)
+        if(o){
+            this.style.width = parseFloat(width) + 5 + 'px'
+            this.style.height = parseFloat(height) + 5 + 'px'
+        }else{
+            this.style.width = parseFloat(width) - 5 + 'px'
+            this.style.height = parseFloat(height) - 5 + 'px'
+        }
+    })
+</script>
+</body>
+</html>

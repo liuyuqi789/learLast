@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+}
+div{
+    float:left
+}
+#box{
+    width:350px;
+    height: 350px;
+    border:1px solid #000;
+    position: relative;
+}
+#box2{
+    position: absolute;
+    width:100px;
+    height:100px;
+    background:rgba(255,125,175,.5);
+    top:0;
+    left:0;
+    display:none;
+    cursor: move;
+}
+#box3{
+    width:500px;
+    height:500px;
+    border:1px solid #000;
+    position: relative;
+    overflow: hidden;
+    display:none;
+}
+#img2{
+    position: absolute;
+    top:0;
+    left:0;
+}
+</style>
+</head>
+<body>
+    <div id="box">
+        <img src="./1.jpg" alt="" srcset="">
+        <div id="box2"></div>
+    </div>
+    <div id="box3">
+            <img id="img2" src="./2.jpg" alt="" srcset="">
+    </div>
+<script>
+    box.onmouseover = function(){
+        // 放大镜
+        box2.style.display = 'block'
+        // 大盒子
+        box3.style.display = 'block'
+    }
+
+    box.onmouseout = function(){
+        box2.style.display = 'none'
+        box3.style.display = 'none'
+    }
+
+    // 获取box的距离
+    let boxW = box.clientWidth
+    let boxH = box.clientHeight
+    box.onmousemove = function(ev){
+        // box2的移动距离
+        let l = ev.pageX - box2.clientWidth/2
+        let t = ev.pageY - box2.clientHeight/2
+        // 边界判断
+        if(l<0){
+            l = 0
+        }else if(l > boxW - box2.clientWidth){
+            l = boxW - box2.clientWidth
+        }
+        if(t<0){
+            t = 0
+        }else if(t > boxH - box2.clientHeight){
+            t = boxH - box2.clientHeight
+        }
+        // 比例 就是透视镜的位置和小盒子之间走过的距离比较
+        let biliL = (ev.pageX - box2.clientWidth/2) / (boxW - box2.clientWidth)
+        let biliT = (ev.pageY - box2.clientHeight/2) / (boxH - box2.clientHeight)
+        // 改变大盒子距离
+        // img2.style.left = -l * biliL + 'px'
+        // img2.style.top = -t * biliT + 'px'
+        img2.style.left = biliL * (box3.clientWidth - img2.offsetWidth) + 'px'
+        img2.style.top = biliT * (box3.clientHeight - img2.offsetHeight) + 'px'
+        // 改变透视镜距离
+        box2.style.left = l + 'px'
+        box2.style.top = t + 'px'
+    }
+
+</script>
+</body>
+</html>
