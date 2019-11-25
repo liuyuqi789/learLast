@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+
+    <ul id="ul1">
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+    </ul>
+
+    <ul id="ul2">
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+        </ul>
+
+
+    <input type="button" value="按钮" class="am"/>
+    <input type="button" value="按钮" class="am"/>
+    <input type="button" value="按钮" class="am"/>
+    <input type="button" value="按钮" class="am"/>
+    <input type="text" class="ag"/>
+    <input type="checkbox" class="ac"/>
+    <input type="checkbox" class="ac"/>
+    <input type="checkbox" class="ac"/>
+    <input type="radio" class="ab"/>
+    <input type="password" class="aba"/>
+    <input type="time" class="b"/>
+    <input type="date" class="ab"/>
+
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        // jq中的选择器,其实很简单,$('')
+        $('#ul2 li').css({
+            width:100,
+            height:100,
+            background:'yellow'
+            // 可以链式调用
+        }).click(function(){
+            // 有些动画效果
+            $(this).animate({
+                width:200,
+                height:50
+            })
+        })
+
+        // 所有的button都绑定
+        $('input[type="button"]').click(function(){
+            $(this).val('按了吧~')
+        })
+        // 所有的非button绑定
+        $('input[type!="button"]').click(function(){
+            $(this).val('别了吧~')
+        })
+
+        // 小小的隔行变色
+        $('#ul li:even').css('background','yellow') // 奇数
+        $('#ul li:odd').css('background','blue') // 偶数
+    </script>
+</body>
+</html>

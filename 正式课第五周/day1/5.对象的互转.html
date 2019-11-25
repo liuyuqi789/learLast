@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+    /*
+        原生对象 box 转成jquery 只需要包$()
+        jquery对象转原生 有两种方法
+        $box.get(0)
+        $box[0]
+    */
+
+    const box = document.getElementById('box')
+    const $box2 = $('#box')
+    const $box = $(box)
+    console.log($box) // 已经转换
+    console.log($box2.get(0)) // 同上
+    console.log($box2[0]) // 同上
+</script>
+</body>
+</html>
