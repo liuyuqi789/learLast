@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="ul">
+
+    </ul>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        // jq中的方法要执行 要用 $.
+        // https://www.baidu.com/s?id=12345&user=lilei&pass=123
+        // 给你了个网站 ,用ajax获取数据
+        $.ajax({
+            method:'post',
+            url:'https://www.baidu.com/s?',
+            data:{
+                id:12345,
+                user:'lilei',
+                pass:123
+            },
+            success:function(data){
+                
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <button>点击</button>
+        <ul>
+        
+        </ul>
+    </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        // 事件在jq中是去掉on的 特殊的是 hover,第一个函数移入,第二个函数移出
+        // jq中所有事件都是二次封装,全都是事件绑定,如果要拿到真正的原生js对象
+        // 需要用 ev.originalEvent 要阻止冒泡,return false即可
+        // $('#box').hover(function(){
+        //     alert('移入了')
+        // },function(ev){
+        //     console.log(ev)
+        //     alert('移出了')
+        // })
+
+        // 事件监听 delegate
+        // $('box').delegate('li','click',function(){
+        //     console.log($(this).text())
+        // })
+
+        // 如果要移入点击怎么办
+        // $('box').hover(function(){
+        //     // 每次移入都会添加一个绑定事件
+        //     $('box').css({background:'yellow'})
+        //     // 每次都解绑一下
+        //     $('button').off().click(function(){
+        //         console.log('跳转')
+        //     },function(){
+        //         $('box').css({background:'green'})
+        //     })
+        // })
+
+        // 解绑操作
+        // $('#box').on('click.a',function(){
+        //     console.log('有a的')
+        // })
+        // $('#box').on('click.b',function(){
+        //     console.log('有b的')
+        // })
+        // $('button').on('click',function(){
+        //     $('#box').off('click.a')
+        //     return false
+        // })
+        // $('button').mousedown(function(){return false})
+
+        let ary = ['1','2','3','4']
+        ary.forEach((item,i)=>{
+            let $li = $(`<li>${i+1}</li>`)
+            $li.on('click',{data:item},function(ev){
+                console.log('my name is' + ev.data.data)
+            })
+            $('ul').append($li)
+        })
+    </script>
+</body>
+</html>

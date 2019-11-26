@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <textarea id="txt"></textarea>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        // extend 可以用来深度拷贝,也可以用来浅拷贝,还可以扩展方法
+        // $.extend 是工具方法 -> $.xx()
+        // $.fn.extend 功能方法 -> $().xx()
+
+        // 扩展插件,在extend里写对象,对象属性就是添加的方法名,值为函数
+        $.extend({
+            qingkongge:function(str){
+                return str.replace(/^\s+/,'')
+            }
+        })
+        let str = '   123   111'
+        console.log($.qingkongge(str))
+
+        // 扩展方法 ,在fn.extend里写
+        $.fn.extend({
+            scrollH:function(){
+                // 变为原生
+                return this[0].scrollHeight
+            }
+        })
+        $(document).click(function(){
+            console.log($('#txt').scrollH())
+        })
+    </script>
+</body>
+</html>
