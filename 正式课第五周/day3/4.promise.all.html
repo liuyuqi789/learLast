@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        //http://img3.imgtn.bdimg.com/it/u=3677258552,564194221&fm=26&gp=0.jpg
+        //http://img0.imgtn.bdimg.com/it/u=3803702211,3145928971&fm=26&gp=0.jpg
+        //http://img5.imgtn.bdimg.com/it/u=2987519344,35541637&fm=26&gp=0.jpg 
+
+        // 图片加载不出来,防盗措施
+        function promP(url){
+            return new Promise((res,rej)=>{
+                let img = document.createElement('img')
+                img.src = url
+                img.onload = function(){
+                    res(img)
+                }
+                img.onerror = function(){
+                    let a  = '失败'
+                    rej(a)
+                }
+            })
+        }
+        let p1 = promP('http://img3.imgtn.bdimg.com/it/u=3677258552,564194221&fm=26&gp=0.jpg')
+        let p2 = promP('http://img0.imgtn.bdimg.com/it/u=3803702211,3145928971&fm=26&gp=0.jpg')
+        let p3 = promP('http://img5.imgtn.bdimg.com/it/u=2987519344,35541637&fm=26&gp=0.jpg')
+
+        Promise.all([p1,p2]).then(([a,b])=>{
+            box.append(a)
+            box.append(b)
+            return p3
+        },(a)=>{
+            console.log(a)
+        }).then(img=>{
+            box.append(img)
+        })
+    </script>
+</body>
+</html>

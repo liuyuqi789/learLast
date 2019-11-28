@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /*
+        为什么要用promise？
+            promise解决了异步编程的问题
+
+            在then里面就走"同步"
+        
+        如何使用promise？
+
+            new Promise(function(resolve,reject){
+                //主线程
+                //当异步代码执行完，通过异步代码的结果去调用resolve或者reject
+
+                //异步代码有可能报错或者错误，如果报错或者错误就执行reject
+                //一般都是resolve(放异步的结果)
+            });
+
+            它有一个返回值，返回值是promise对象，这个对象有then方法
+            then(成功函数,失败函数)
+            第一个then  （微任务）
+                成功函数里面的参数就是异步的结果
+
+            第二个then （微任务）
+                第一个then的返回值
+
+        虽然promise解决了异步编程的问题，但是在then的外面还是异步的
+        没有promise也能进行开发，只不过维护起来麻烦点
+        then中包含2个函数，第一个函数是成功之后的回调，第二个函数是失败之后的回调
+        finally：不管成功还是失败都会进的回调函数
+
+         如果代码有可能会报错，下面的代码是不会执行的，如果使用try，catch
+        那么try中的代码报错会进catch，报错是不会影响后面代码执行的
+    */
+    let  p = new Promise((res,rej)=>{
+        res(0)
+    })
+    p.then(d=>{console.log(d)})
+
+    // 第一个then的返回值是第二个then的参数
+    // JSON.parse() 把json类型转成对象
+    // JSON.stringify()  把对象转成json类型,但是会把函数和undefined过滤掉
+    let p1 = new Promise((res,rej)=>{
+        // a = 20
+        // res(a)
+        try{
+            b
+        }catch(e){
+            rej(e)
+        }
+    })
+    p1.then(a=>{
+        console.log(a)
+    },()=>{
+        console.log('e')
+    }).finally(()=>{
+        console.log('ok')
+    })
+
+    // pending
+    let p2 = new Promise((res,rej)=>{
+        setTimeout(()=>{
+            res({
+                data:'{"name":"珠峰"}',
+                json:function(){
+                    return JSON.parse(this.data)
+                }
+            })
+        },2000)
+    })
+    p2.then(a=>{
+        return a.json()
+    }).then(d=>{
+        console.log(d.name)
+    })
+    </script>
+</body>
+</html>
