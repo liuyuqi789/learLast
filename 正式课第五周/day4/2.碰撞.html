@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#box{
+    width:100px;
+    height: 100px;
+    background: red;
+    position: absolute;
+    top:0;
+    left:0;
+}
+#box2{
+    width:100px;
+    height: 100px;
+    background: skyblue;
+    position: absolute;
+    top:300px;
+    left:300px;
+}
+</style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box2"></div>
+<script src="./bong.js"></script>
+<script>
+
+    /*
+        DOM0 on
+             null
+
+        DOM2 addEventListener getBoundingClientRect()
+
+            removeEvenetListener('事件',要解除的函数,布尔值)
+                注意：
+                    *** 解除绑定必须是一个有名函数（要和绑定的函数对应）
+
+    */
+    box.addEventListener('mousedown',(ev)=>{
+        let {left:l,top:t} = box.getBoundingClientRect()
+        let disX = ev.pageX - l
+        let disY = ev.pageY - t
+        // 移动函数
+        function m(ev){
+            if(bong(box,box2)){
+                box2.style.background = 'yellow'
+            }else{
+                box2.style.background = 'skyblue'
+            }
+
+            box.style.cssText = `top:${ev.pageY - disY}px;left:${ev.pageX - disX}px;`
+        }
+        // 抬起函数
+        function up(){
+            document.removeEventListener('mousemove',m)
+            document.removeEventListener('mouseup',up)
+        }
+
+        document.addEventListener('mousemove',m)
+        document.addEventListener('mouseup',up)
+    })
+</script>
+</body>
+</html>

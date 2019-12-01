@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#box{
+    width:0;
+    height:0;
+    background:rgba(200,210, .3);
+    border:1px dashed green;
+    position: absolute;
+    left:0;
+    top:0;
+    display: none;
+}
+</style>
+</head>
+<body style="height:3000px">
+    <div id="box"></div>
+<script>
+    class Hua{
+        constructor(id){
+            this.disX = this.disY = 0
+            this.box = document.getElementById(id)
+        }
+
+        init(){
+            document.addEventListener('mousedown',this.down.bind(this))
+        }
+
+        down(ev){
+            this.disX = ev.pageX
+            this.disY = ev.pageY
+
+            this.box.style.display = 'block'
+            this.box.style.left = ev.pageX + 'px'
+            this.box.style.top = ev.pageY + 'px'
+
+            document.addEventListener('mousemove',this.m = this.move.bind(this))
+            document.addEventListener('mouseup',this.u = this.up.bind(this))
+        }
+
+        move(ev){
+            this.box.style.left = Math.min(ev.pageX,this.disX) + 'px'
+            this.box.style.top = Math.min(ev.pageY,this.disY) + 'px'
+            this.box.style.width = Math.abs(ev.pageX - this.disX) + 'px'
+            this.box.style.height = Math.abs(ev.pageY - this.disY) + 'px'
+        }
+
+        up(){
+            this.box.style.width = this.box.style.height = 0
+            this.box.style.display = 'none'
+            document.removeEventListener('mousemove',this.m)
+            document.removeEventListener('mouseup',this.u)
+        }
+    }
+
+    let h = new Hua('box')
+    h.init()
+</script>
+</body>
+</html>

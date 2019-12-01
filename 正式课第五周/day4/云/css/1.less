@@ -1,0 +1,128 @@
+@r:1px;
+.w(@w){
+    width: @w * @r
+}
+.h(@h){
+    height: @h * @r;
+}
+.p(){
+    position: absolute;
+}
+.l(@l){
+    left: @l * @r
+}
+.t(@t){
+    top: @t * @r
+}
+.disN(){
+    display:none
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#body{
+    position: relative;
+}
+
+
+    
+// 头
+#head{
+    position: absolute;
+    left: 20%;
+    .h(100);
+    position: relative;
+    ul{
+        position: absolute;
+        .l(10);
+        .t(10);
+        .w(1000);
+        .h(50);
+        display:flex;
+        background:black;
+        li{
+            line-height: 40px;
+            color:wheat;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+    }
+}
+// 左边
+#leftbody{
+    .w(150);
+    .h(700);
+    background: black;
+    position: absolute;
+    overflow: auto;
+    .t(80);
+    left:20%;
+    ul{
+        li{
+            margin-top:25px;
+            .w(140);
+            .h(25);
+            text-align: center;
+            color:wheat;
+        }
+    }
+}
+// 右边
+#rightbody{
+    position: absolute;
+    background:whitesmoke;
+    .w(840);
+    .h(700);
+    .t(80);
+    left:30%;
+    overflow: auto;
+    #rightb{
+        position: absolute;
+        .w(820);
+        .h(680);
+        .l(10);
+        .t(10);
+        li{
+            .w(110);
+            .h(140);
+            float: left;
+            div{
+                .w(100);
+                .h(200);
+                img{
+                    .w(100);
+                    .h(100);
+                }
+                input{
+                    .w(100);
+                    margin:0 auto;
+                    display: inline-block;
+                    text-align: center
+                }
+                p{
+                    .w(98);
+                    text-align: center;
+                }
+            }
+        }
+        
+    }
+}
+
+// 滑块
+#body{
+    #box{
+        .w(0);
+        .h(0);
+        background:rgba(200,210, .3);
+        border:1px dashed green;
+        .p();
+        .l(0);
+        .t(0);
+        .disN();
+    }
+}
