@@ -130,203 +130,28 @@
 		getData(){
 			let that = this
 			fetch('data.json').then(a=>a.json()).then(data=>{
-				// 莽的话不能循环，但是也毫无办法
-				data.forEach(ele=>{
-					that.doData(ele)
-				})
+				function tha(data){
+					let temp = ''
+					data.forEach(item=>{
+						temp += `<li>
+						<span class="add"></span>
+						<div>${item.title}</div>
+						${item.child?`<ul>${tha(item.child)}</ul>`:''}
+						</li>`
+					})
+					return temp
+				}
+				oUl.innerHTML = tha(data)
 				this.dianji()
-				// this.render(data)
-			})
+				})
 		}
-		// 整理数据
-		doData(ele){
-            let that = this
-            let ary2 = []
-            let ary3 = []
-            let ary4 = []
-            let ary5 = []
-            // 第二层
-			ele.child.forEach(ele2=>{
-                // 第三层
-                if(ele2.child){
-                    ele2.child.forEach(ele3=>{
-                        ary3.push(ele3.title)
-                        // 第四层
-                        if(ele3.child){
-                            ele3.child.forEach(ele4=>{
-                                ary4.push(ele4.title)
-                                // 第五层
-                                if(ele4.child){
-                                    ele4.child.forEach(ele5=>{
-                                        ary5.push(ele5.title)
-                                    })
-                                }
-                            })
-                        }
-                    })
-                }
-                ary2.push(ele2.title)
-			})
-			this.render(ele,ary2,ary3,ary4,ary5)
-		}
-		// 渲染
-		render(ele,ary2,ary3,ary4,ary5){
-			this.oUl.innerHTML = `<li>
-						<span class="add"></span>
-						<div>${ele.title}</div>
-						<ul>
-							<li>
-								<span class="line"></span>
-								<div>${ele.child[0].title}</div>
-							</li>
-							<li>
-								<span class="add"></span>
-								<div>${ele.child[0].title}</div>
-								<ul>
-									<li>
-										<span class="line"></span>
-										<div>${ary3[0]}</div>
-									</li>
-									<li>
-										<span class="add"></span>
-										<div>${ary3[1]}</div>
-										<ul class="f4">
-											<li>
-												<span class="line"></span>
-												<div>第四级菜单</div>
-											</li>
-											<li>
-												<span class="line"></span>
-												<div>第四级菜单</div>
-											</li>
-											<li>
-												<span class="add"></span>
-												<div>第四级菜单</div>
-												<ul class="f5">
-													<li>
-														<span class="line"></span>
-														<div>第五级菜单</div>
-													</li>
-													<li>
-														<span class="line"></span>
-														<div>第五级菜单</div>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<span class="line"></span>
-										<div>${ary3[0]}</div>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<span class="add"></span>
-								<div>${ary2[2]}</div>
-								<ul>
-									<li>
-										<span class="line"></span>
-										<div>${ary3[1]}</div>
-									</li>
-									<li>
-										<span class="line"></span>
-										<div>${ary3[0]}</div>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<span class="add"></span>
-						<div>${ele.title}</div>
-						<ul>
-							<li>
-								<span class="line"></span>
-								<div>${ele.child[0].title}</div>
-							</li>
-							<li>
-								<span class="add"></span>
-								<div>${ary2[1]}</div>
-								<ul class="f3">
-									<li>
-										<span class="line"></span>
-										<div>${ary3[0]}</div>
-									</li>
-									<li>
-										<span class="add"></span>
-										<div>${ary3[1]}</div>
-										<ul class="f4">
-											<li>
-												<span class="line"></span>
-												<div>第四级菜单</div>
-											</li>
-											<li>
-												<span class="line"></span>
-												<div>第四级菜单</div>
-											</li>
-											<li>
-												<span class="line"></span>
-												<div>第四级菜单</div>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<span class="line"></span>
-										<div>${ary3[0]}</div>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<span class="add"></span>
-								<div>${ele.child[0].title}</div>
-								<ul>
-									<li>
-										<span class="line"></span>
-										<div>${ary3[1]}</div>
-									</li>
-									<li>
-										<span class="line"></span>
-										<div>${ary3[0]}</div>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<span class="add"></span>
-						<div>${ele.title}</div>
-						<ul>
-							<li>
-								<span class="line"></span>
-								<div>${ele.child[0].title}</div>
-							</li>
-							<li">
-								<span class="line"></span>
-								<div>${ele.child[0].title}</div>
-							</li>
-							<li>
-								<span class="add"></span>
-								<div>${ele.child[0].title}</div>
-								<ul class="f3">
-									<li>
-										<span class="line"></span>
-										<div>${ary3[0]}</div>
-									</li>
-									<li>
-										<span class="line"></span>
-										<div>${ary3[1]}</div>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>`
-		}
+		
 		// 点击
 		dianji(){
 			let span1 = document.querySelectorAll('.add')
 			let span2 = document.querySelectorAll('.line')
 			let uls = document.querySelectorAll('ul ul')
+			console.log(span1)
 			span1.forEach((ele,i)=>{
 				ele.onoff = true
 				ele.onclick = function(){

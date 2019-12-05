@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#box{
+    width:100px;
+    height:100px;
+    background:slategrey;
+    position: absolute;
+    top:0;
+    left:100px;
+}
+</style>
+</head>
+<body>
+    <div id="box"></div>
+<script>
+    // c*(t/d) + b;    
+    let timer;
+
+    /*
+        c:总长度
+        t:当前走了多少时间
+        d:总时间
+        b:初始的距离
+
+        当前走了多少时间(动) / 总时间(固定的) * 总长度(固定的) + 初始的距离(固定的)
+
+        总时间 = 10秒
+        总长度 = 500px
+        
+    */
+    let count = 500
+    let duration = 1000
+
+    box.onclick = function(){
+        let t1 = +new Date
+        let b = parseFloat(getComputedStyle(box).left)
+
+        count = count - b
+        timer = setInterval(()=>{
+            let t = new Date - t1
+            if(t >= duration){
+                t = duration
+                clearInterval(timer)
+            }
+            box.style.left = b + t/duration * count + 'px'
+        },16.7)
+    }
+</script>
+</body>
+</html>
