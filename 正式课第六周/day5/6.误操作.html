@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+.active{
+    background: yellow;
+}
+</style>
+</head>
+<body>
+    <button class="active">1111</button>
+    <button>2222</button>
+    <button>3333</button>
+<script>
+    const btns = document.querySelectorAll('button')
+    let b = btns[0]
+
+    let x = 0 
+    let y = 0
+    btns.forEach((ele,i) => {
+        // 开始点的时候,存一个开始的点
+        ele.ontouchstart = function(ev){
+            x = ev.changedTouches[0].pageX
+            y = ev.changedTouches[0].pageY
+        }
+        // 结束的时候
+        ele.ontouchend = function(ev){
+            let endx = ev.changedTouches[0].pageX
+            let endy = ev.changedTouches[0].pageY
+            // 看看当前的位置是不是跟之前的位置相同,偏差大过10就算偏移,直接返回
+            if(Math.abs(endx - x) > 10 || Math.abs(endy - y) > 10){
+                return
+            }
+            // 选项卡啦
+            b.className = ''
+            this.className = 'active'
+            b=this
+        }
+    })
+
+</script>
+</body>
+</html>

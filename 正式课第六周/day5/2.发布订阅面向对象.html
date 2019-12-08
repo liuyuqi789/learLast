@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">点了</button>
+    <script>
+        class Ziding {
+            constructor() {
+                this.subscribe = {}
+            }
+            ding(obj,evName,fn){
+                this.subscribe[evName] = this.subscribe.evName || []
+                this.subscribe[evName].push(fn)
+            }
+            pulish(obj,evName){
+                if(!this.subscribe[evName]) return null
+                this.subscribe[evName].forEach(item=>item.call(obj))
+            }
+            removeEv(obj,evName,fn){
+                if(!this.subscribe[evName])return null
+                for(let i = 0 ; i < this.subscribe[evName] ; i++){
+                    if(this.subscribe[evName][i] === fn){
+                        this.subscribe[evName].splice(i,1)
+                        break
+                    }
+                }
+            }
+        }
+
+        let dian = new Ziding
+
+        dian.ding(btn,'点击',function(){
+            alert('1')
+        })
+
+        btn.onclick = function(){
+            dian.pulish(btn,'点击')
+        }
+    </script>
+</body>
+</html>

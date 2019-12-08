@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        1.初始化事件
+            document.createEvent('Event')
+            event.initEvent('事件名',是否冒泡,是否捕获);
+        2.发布
+            document.dispatchEvent(event)
+
+        3.订阅
+            document.addEventListener('事件名',事件函数)
+        */
+       document.addEventListener('ww',function(){
+           console.log('上')
+       })
+       document.addEventListener('ss',function(){
+           console.log('下')
+       })
+       let even = document.createEvent('Event')
+       even.initEvent('ww',true,false)
+
+       let even2 = document.createEvent('Event')
+       even2.initEvent('ss',true,false)
+       
+       document.onmousewheel = function(ev){
+            if(ev.wheelDelta > 0){
+                document.dispatchEvent(even)
+            }else{
+                document.dispatchEvent(even2)
+            }
+       }
+    </script>
+</body>
+</html>

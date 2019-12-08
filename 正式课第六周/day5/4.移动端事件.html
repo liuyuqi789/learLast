@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:100px;
+            height:100px;
+            background: red;
+        }
+        #box2{
+            width:100px;
+            height:100px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box2"></div>
+    <script>
+        // box.onclick = function(){
+        //     console.log(1);
+        // } 
+
+        // box.onmousedown = function(){
+        //     console.log('down');
+        // }
+
+        // box.onmouseup = function(){
+        //     console.log('抬起');
+        // }
+
+        box.ontouchstart = function(){
+            console.log('start');
+        }
+
+        box.ontouchend = function(){
+            console.log('ontouchend');
+        }
+        box2.ontouchend = function(){
+            console.log('ontouchend2');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+#vi{
+    position:static;
+    right:0;
+    bottom:0;
+}
+</style>
+</head>
+<body style="height:3000px">
+   <video id="vi" controls width="300" height="200" src="../../../由于特殊原因试一下我就删掉了哎嘿.mp4"></video>
+<script>
+    let high = window.innerHeight
+    window.onscroll = function(){
+        if(window.pageYOffset >= high){
+            vi.style.cssText = 'position:fixed;width:100px;height:80px;'
+        }else{
+            vi.style.cssText = 'position:static;width:300px;height:200px'
+        }
+    }
+</script>
+</body>
+</html>

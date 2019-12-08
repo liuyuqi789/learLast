@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        #xq{
+            transition: 1s;
+        }
+        #enen{
+            width:100px;
+            height: 100px;
+            background: gray;
+        }
+        #haha{
+            position: absolute;
+            left: 0;
+            top: 0;
+            display:none;
+            background: yellow;
+            opacity: .2;
+        }
+    </style>
+</head>
+<body>
+    <div id="xq">
+        <div id="enen"></div>
+        <div id="haha"></div>
+    </div>
+    <script>
+        // 大概有一些想法,比如事件碰撞,移入从0开始走到第一个盒子的宽度,之前碰到了冒泡的问题该用了enter,又使用了ev的pageX,pageY发现并不理想
+        // 或者加上判断,移入的时候是0,从左边移入就让left=大盒子,top直接等于大盒子,上边同理
+        let timer = null
+        enen.onmouseenter = function(ev){
+            haha.style.height = enen.scrollHeight + 'px'
+            timer = setInterval(()=>{
+                haha.style.width = parseFloat(haha.style.width) + 5 + 'px'
+                if(haha.style.width === enen.style.width)return
+            },200)
+            haha.style.display = 'block'
+        }
+        enen.onmouseleave = function(ev){
+            clearTimeout(timer)
+            haha.style.width = haha.style.height = 0
+            haha.style.display = 'none'
+        }
+    </script>
+</body>
+</html>

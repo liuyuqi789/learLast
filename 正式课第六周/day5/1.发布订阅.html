@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">点上</button>
+    <script>
+        // 订阅池
+        addEv(btn,'click',function(){
+            alert(1)
+        })
+        addEv(btn,'click',function(){
+            alert(2)
+        })
+        addEv(btn,'click',ff)
+
+        function ff(){
+            alert(3)
+            removeEv(btn,'click',ff)
+        }
+        /*
+            1.先看看obj有没有订阅池，如果之前就已经有订阅池了，那么就直接在以前的订阅池中订阅事件和事件函数
+            如果没有订阅池，要创建一个订阅池，然后在这个新的订阅池中添加事件和事件函数
+
+            2.往事件池中添加事件函数
+                (1)先看这个订阅池中有木有这个事件，如果有，就用之前的事件池再次追加事件函数即可
+                    如果说没有事件，那么要在订阅池中添加这个事件池，并且在这个事件池中添加事件
+
+                (2)有了事件池之后，把传入的函数push到事件池中即可
+        */
+        //订阅
+        function addEv(obj,evName,fn){
+            // 看看里面有没有订阅
+            obj.subscribe = obj.subscribe || {}
+            // 看看订阅里有没有方法
+            obj.subscribe[evName] = obj.subscribe[evName] || []
+            // 把要执行的代码放到订阅器里面
+            obj.subscribe[evName].push(fn)
+        }
+        // 先看看obj下有没有订阅池和事件池
+        // 循环事件池，把事件池中的每个函数依次调用即可
+        // 发布
+        function publish(obj,evName){
+            // 判断有没有
+            if(!obj.subscribe || !obj.subscribe[evName]){
+                return null
+            }
+            // 把每一个的this都改变,否则指向的是window
+            obj.subscribe[evName].forEach(item => item.call(obj))
+        }
+
+        // 解绑
+        function removeEv(obj,evName,fn){
+            // 如果没有订阅直接返回
+            if(!obj.subscribe || !obj.subscribe[evName]) return null
+            // 循环,删掉fn那个函数
+            for(let i = 0 ; i < obj.subscribe[evName].length ; i++){
+                if(obj.subscribe[evName][i] === fn){
+                    obj.subscribe[evName].splice(i,1)
+                    break
+                }
+            }
+        }
+
+        document.onclick = function(ev){
+            if(ev.target.tagName === 'BUTTON'){
+                publish(btn,'click')
+            }
+        }
+    </script>
+</body>
+</html>

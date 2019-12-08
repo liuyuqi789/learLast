@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body id="body" style="height:3000px;">
+    <ul id="ul" style="position:fixed;right: 0;top: 20%;width: 50px;height: 100px;border: 1px solid black;text-align: center;list-style: none;">
+        <li style='top: 10% ;position: absolute;cursor: pointer;'>上</li>
+        <li style='top: 35% ;position: absolute;cursor: pointer;'>中</li>
+        <li style='top: 60% ;position: absolute;cursor: pointer;'>下</li>
+    </ul>
+    <div id="da" style="transition: linear">
+        <div style="top:0;width: 1000px;height:1000px;background:grey;text-align: center;">第一张</div>
+        <div style="top:1000px;width: 1000px;height:1000px;background:greenyellow;text-align: center;">第二张</div>
+        <div style="top:2000px;width: 1000px;height:1000px;background:pink;text-align: center;">第三张</div>
+    </div>
+    
+    <script>
+        const lis = document.querySelectorAll('#ul li')
+        const divs = document.querySelectorAll('#da div')
+        let num = 1
+        lis.forEach((ele,i)=>{
+            ele.onmouseenter = function(){
+                this.style.background = 'yellow'
+            }
+            ele.onmouseleave = function(){
+                this.style.background = ''
+            }
+            ele.onclick = function(){
+                // 未能想出到底是怎么才能有动画效果,参考了很多资料,大概的想法是改变da的top,但是没法实现,document上填不了动画,每一个div填上动画没有用,
+                // 尝试了运动轨迹,发现传入的值无法处理,选项卡的写法可能并不适合这种,但是如果不用选项卡的话也很难确定下一个或者点击的是哪个
+                // 又尝试了一滚一屏,但是无法点击哪个是哪个 上网查询滚动条距离改变怎么有动画效果,未果,推荐使用插件
+                document.documentElement.scrollTop = parseFloat(divs[i].style.top)
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+#box{
+    width:200px;
+    height:200px;
+    background: red;
+    transition: 1s;
+}
+</style>
+</head>
+<body>
+    <div id="box"></div>
+<script>
+    document.addEventListener('top',function(){
+        console.log('上')
+        box.style.background = 'yellow'
+        box.style.height = '1000px'
+    })
+    document.addEventListener('left',function(){
+        console.log('左')
+        box.style.background = 'blue'
+        box.style.height = '100px'
+        let ct = setTimeout(()=>{
+            alert('别骂啦,再骂人就傻了~')
+        },1300)
+    })
+    // 上边的
+    let even = document.createEvent('Event')
+    even.initEvent('top',true,false)
+    // 左边的
+    let even1 = document.createEvent('Event')
+    even1.initEvent('left',true,false)
+
+    // 开始咯
+    let startX = 0,startY = 0
+    // 移动的
+    let moveX = 0,moveY = 0
+    // 开始坐标点
+    document.ontouchstart = function(ev){
+        startX = ev.changedTouches[0].pageX
+        startY = ev.changedTouches[0].pageY
+    }
+    // 移动坐标点
+    document.ontouchmove = function(ev){
+        moveX = ev.changedTouches[0].pageX
+        moveY = ev.changedTouches[0].pageY
+    }
+    // 结束
+    document.ontouchend = function(ev){
+        // 结束的位置
+        let endX = ev.changedTouches[0].pageX
+        let endY = ev.changedTouches[0].pageY
+        if(startX === endX || startY == endY){
+            alert('介揍似个点鸡!')
+            return
+        }
+        // 左边,如果左边坐标点移动比开始小(负的了)并且绝对距离比往上面移动的绝对距离要大,就是左边啦
+        if(moveX - startX < 0 && Math.abs(moveX - startX) > Math.abs(moveY - startY)){
+            document.dispatchEvent(even1)
+        }
+        // 上边,如果上边坐标点移动比开始小(负的了)并且绝对距离比往左面移动的绝对距离要大,就是上边啦
+        if(moveY - startY < 0 && Math.abs(moveY - startY) > Math.abs(moveX - startX)){
+            document.dispatchEvent(even)
+        }
+    }
+</script>
+</body>
+</html>
