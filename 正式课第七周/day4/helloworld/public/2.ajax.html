@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    用户名: <input type="text" id="user">
+    密码: <input type="text" id="pw">
+    <button id="btn">提交</button>
+    <script>
+        user.onblur = function(){
+            fetch('/get?user='+user.value).then(d=>d.json()).then(d=>{
+                if(d.code === 0){
+                    user.style.border = '1px solid red'
+                }else if(d.code === 1){
+                    user.style.border = '1px solid green'
+                }
+            })
+        }
+    </script>
+</body>
+</html>

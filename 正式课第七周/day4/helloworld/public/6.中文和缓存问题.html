@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="user">
+    <script>
+        user.onblur = function(){
+            var xhr = new XMLHttpRequest
+            xhr.open('get','/get?user=' + encodeURI(this.value) + '&myLYQ=' + Date.now() ,true)
+            xhr.send()
+            xhr.onload = function(){
+                console.log(xhr.responseText)
+            }
+        }
+    </script>
+</body>
+</html>
