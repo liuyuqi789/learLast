@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="txt"/>
+    <button id="btn">变</button>
+<script>
+    /*
+        第一种方法,eval
+        如果有 href,src,style 就直接弹出,防止植入病毒
+    */
+
+    btn.onclick = function(){
+        let val = txt.value
+        if(/href|src|style|localtion/.test(val)){
+            alert('快说:你是猪!!!')
+        }else{
+            // 因为如果是json数据,eval是直接转不过来的,需要加个括号
+            console.log(eval(`(${val})`))
+        }
+    }
+
+
+    // 第二种方法, new Function('a,b','return a+b')(1,2)
+    //                     类似于形参 类似于函数里边的代码 类似于形参
+    console.log(new Function('','return ' + '{name:"jo太郎"}')())
+</script>
+</body>
+</html>

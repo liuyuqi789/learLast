@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+        注册的用户名:<input id="user" type="text"/>
+<script>
+    user.onblur = function(){
+        var xhr = new XMLHttpRequest
+        xhr.open('get','/sleep?name='+this.value,true)
+        xhr.send()
+        // 同步的话,这两段会同时出来
+        console.log(xhr.responseText)
+        console.log('继续执行')
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+        注册的用户名:<input id="user" type="text"/><span id="s"></span> </br>
+        注册的密码:<input type="password" id="pw"/>
+        <button id="btn">提交</button>
+<script>
+    // user.onblur = function(){
+    //     var xhr = XMLHttpRequest
+    //     xhr.open('get','/get?user='+this.value,true)
+    //     xhr.onreadystatechange = function(){
+    //         if(readyState === 4){
+    //             if(/(20[0-7])|(30[14])/.test(xhr.status)){
+    //                 console.log(xhr.responseText)
+    //             }
+    //         }
+    //     }
+    // }
+    // 封装思路:使用的时候怎么传,封装的函数就怎么写
+    // ajax('地址',{error:function(),success:function()},{method:'请求方示',body:'地址后半段',headers:{'content-type':'application/x-www-form-urlencoded'}})
+    user.onblur = function(){
+        ajax('/get',{
+            error:function(status){
+                console.log(status,'真失败')
+            },
+            success:function(d){
+                console.log(d,'成功了')
+            }
+        },{
+            method:'GET',
+            body:'user='+this.value,
+            headers:{
+                'content-type':'application/x-www-form-urlencoded'
+            }
+        })
+    }
+
+    function ajax(url,cb,opt){
+        var myopt = opt && {
+            method:opt.method || 'get',
+            body:opt.body || '',
+            headers:opt.headers || {}
+        }
+        var len = arguments.length
+        var xhr = new XMLHttpRequest
+
+        // 适用在ie低版本浏览器方法,请求块
+        function ready(){
+            // 如果是在低版本ie中也能适用
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(/(20[0-7]|30[14])/.test(xhr.status)){
+                        cb.success && cb.scucess(eval('('+xhr.responseText+')'))
+                    }else{
+                        cb.error && cb.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 判断块,如果2个参数就是get,3个参数就需要看看
+        if(len === 2){
+            xhr.open('get',url,true)
+            ready()
+            xhr.send()
+        }else if(len === 3){
+            if(/^get$/i.test(myopt.method)){
+                // get的情况
+                xhr.open('get',url+'?'+myopt.body+'&myLyq='+Date.now(),true)
+                ready()
+                xhr.send()
+            }else if(/^post$/i.test(myopt.method)){
+                // post的情况下
+                xhr.open('post',url,true)
+                for(var attr in myopt.headers){
+                    // 如果有的话,才放,严谨
+                    if(myopt.headers.hasOwnProperty(attr)){
+                        xhr.setRequestHeader(attr,myopt.headers[attr])
+                    }
+                }
+                ready()
+                xhr.send(myopt.body)
+            }
+        }
+    }
+</script>
+</body>
+</html>
