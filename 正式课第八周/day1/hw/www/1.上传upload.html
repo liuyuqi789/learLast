@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#bar{
+    width: 100%;
+    height:5px;
+    position: relative;
+}
+#box{
+    width:0;
+    height:5px;
+    position: absolute;
+    top:0;
+    left:0;
+    background: gold;
+}
+</style>
+</head>
+<body>
+    <!-- image类似于user也是个参数字段 -->
+        请选择:<input type="file" id="file" multiple/>
+        <button id="btn">上传</button>
+        <div id="bar">
+            <div id="box"></div>
+        </div>
+
+<script>
+    btn.onclick = function(){
+        let xhr = new XMLHttpRequest
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                if(xhr.status === 200){
+                    console.log(xhr.responseText)
+                }
+            }
+        }
+        xhr.open('post','/upload')
+        // formdate,用来设置图片路径,因为获取到的不对劲
+        // 所以用append('image',file.files[0])
+        let fd = new FormData()
+
+        xhr.upload.onprogress = function(ev){
+            // loaded,当前大小 total 总大小
+            let scale = ev.loaded / ev.total
+            box.style.width = scale * 100 + '%'
+        }
+
+        fd.append('image',file.files[0])
+    }
+</script>
+</body>
+</html>

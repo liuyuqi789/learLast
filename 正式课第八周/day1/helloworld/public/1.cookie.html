@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#box{
+    padding: 30px;
+    border:1px solid #000;
+}
+</style>
+</head>
+<body>
+    <!-- <ul id="ul"></ul> -->
+    <h1 id="h1"></h1>
+    <div id="box">
+        用户名:<input type="text" id="user"/>
+        密码:<input type="password" id="pw"/>
+        <button id="btn">登录</button>
+    </div>
+<script>
+    /*
+        cookie的生命周期
+            默认的生命周期是当浏览器关闭，生命就结束
+
+            如果不要走默认的生命周期使用 expires
+
+            expires=需要设置的时间 
+
+            let o = new Date();
+            o.setDate(new Date().getDate() + 1);  //比当前时间多1天
+
+            document.cookie = 'name=pq; expires='+o;
+
+        cookie，在以前每个域名只能设置几个或者几十个，字字千金，现在据说有5M
+
+        cookie必须使用服务器环境
+    */
+
+
+    let sql = [
+        {
+            user:'渣渣辉',
+            pw:1399
+        },
+        {
+            user:'姑添勒',
+            pw:4399
+        }
+    ]
+
+    let c = document.cookie
+    c.split('; ').forEach(item=>{
+        let ary = item.split('=')
+        if(ary[0] === user){
+            h1.innerText = '玩家' + ary[1] + '登入'
+            box.style.display = 'none'
+        }
+    })
+    btn.onclick = function(){
+        let val1 = user.value
+        let val2 = pw.value
+        let o = sql.find(item=>item.user === val1)
+        if(o){
+            if(o.pw === val2 * 1){
+                alert('欢迎登录游戏')
+                document.cookie = 'user' + o.user
+                window.location.reload()
+            }else{
+                alert('账号或密码有误')
+            }
+        }else{
+            alert('没有当前角色')
+        }
+    }
+
+    setCookie('name','xxoo',{
+        setTime:{
+            date:10
+        }
+    })
+
+    function setCookie(key,val,time){
+        if(time){
+            let o = new Date
+            let t,prop
+            for(let attr in time.setTime){
+                t = attr[0].toUpperCase() + attr.substr(1)
+                prop = attr
+            }
+            o['set' + t](new Date()['get' + t] + time.setTime[attr])
+            document.cookie = key + '=' + val + 'expires=' + o
+        }else{
+            document.cookie = key + '=' + val
+        }
+    }
+</script>
+</body>
+</html>

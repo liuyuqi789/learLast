@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 4点击3也会变化
+    document.onclick = function(){
+        localStorage.setItem('user','ok')
+        localStorage.setItem('user2','nb')
+    }
+    window.onstorage = function(){
+        console.log('触发2')
+    }
+</script>
+</body>
+</html>

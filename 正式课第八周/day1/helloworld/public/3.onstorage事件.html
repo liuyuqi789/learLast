@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 点击会在兄弟页面触发
+    document.onclick = function(){
+        localStorage.setItem('user','jojo')
+        localStorage.setItem('user2','fq')
+    }
+
+    // 3点击的时候4会删掉,3也会删掉,相当于这个管4的
+    window.onstorage = function(){
+        console.log('触发1')
+        localStorage.removeItem('user2')
+    }
+</script>
+</body>
+</html>
