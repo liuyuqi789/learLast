@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#box{
+    width:100px;
+    height:100px;
+}
+</style>
+</head>
+<body style="height:3000px">
+    <button id="hash">改hash</button>
+    <button id="search">改search</button>
+    <div id="box"></div>
+<script>
+
+    let i = 0
+    hash.onclick = function(){
+        window.location.hash = 'ary=' + i++
+        console.log(window.location.hash)
+    }
+
+    window.onhashchange = function(){
+        console.log(111)
+    }
+
+    search.onclick = function(){
+        window.location.search = 'ser=' + i++
+        console.log(window.location.search)
+    }
+
+    // 根据不同情况适配
+    if(/chrome/i.test(window.navigator.userAgent) && /windows/i.test(window.navigator.userAgent)){
+        box.style.background = 'red'
+    }else if(/firefox/i.test(window.navigator.userAgent)){
+        box.style.background = 'green'
+    }else if(/iphone/i.test(window.navigator.userAgent)){
+        box.style.background = 'yellow'
+    }else if(/android/i.test(window.navigator.userAgent)){
+        box.style.background = 'skyblue'
+    }
+
+</script>
+</body>
+</html>
