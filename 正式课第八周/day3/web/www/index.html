@@ -113,38 +113,23 @@
     div1.onclick = function(ev){
         if (ev.target.className == 'cut') {
             let id = ev.target.parentNode.parentNode.parentNode.id;
-            fetch('/api/weibo?act=del&id=' + id).then(d=>d.json()).then(d=>{
-                alert(d.msg)
-                if(d.code === 0){
-                    sx()
-                }
-            })
+            fetchFn('/api/weibo?act=del&id=' + id)
         } else if (ev.target.className == 'top') {
             //点赞top
             let id = ev.target.parentNode.parentNode.parentNode.id;
-            fetch('/api/weibo?act=like&id=' + id).then(d=>d.json()).then(d=>{
-                console.log(d)
-                alert(d.msg)
-                if(d.code === 0){
-                    sx()
-                }
-            })
+            fetchFn('/api/weibo?act=like&id=' + id)
         } else if (ev.target.className == 'down_icon') {
             //我踩！！！！！！
             let id = ev.target.parentNode.parentNode.parentNode.id;
-            fetch('/api/weibo?act=dislike&id=' + id).then(d=>d.json()).then(d=>{
-                alert(d.msg)
-                if(d.code === 0){
-                    sx()
-                }
-            })
-           
+            fetchFN('/api/weibo?act=dislike&id=' + id)
         }
     }
     function fetchFn(url){
         fetch(url).then(d => d.json()).then(d=>{
             alert(d.msg)
-            render(d)
+            if(d.code === 0){
+                sx()
+            }
         })
     }
 
