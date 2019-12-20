@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 来回倒,为的就是要同步执行代码,只要是在generator函数里都是同步执行
+    // 这种方法 优点是不一定要用promise 缺点是很复杂
+    function* fn(){
+        console.log('连接开始')
+        let res = yield request('/sleep?user=ylc')
+        console.log('请求到'+res)
+        console.log('链接关闭')
+    }
+
+    let f = fn()
+    document.onclick = function(){
+        f.next()
+    }
+
+    function request(url){
+        let xhr = new XMLHttpRequest
+        xhr.open('get',url)
+        xhr.send()
+        xhr.onload = function(){
+            f.next(xhr.responseText)
+        }
+    }
+</script>
+</body>
+</html>

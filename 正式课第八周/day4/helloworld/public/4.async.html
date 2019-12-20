@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // async 替换掉 * await 替换掉 yield
+    // 这是 generator的语法糖
+    // 优点是不用那么麻烦了,缺点是必须得写promise对象
+    document.onclick = async function fn(){
+        console.log('开始')
+        let res = await fetch('/sleep?user=yls').then(d=>d.text())
+        console.log('get到'+res)
+        console.log('再见')
+    }
+</script>
+</body>
+</html>
