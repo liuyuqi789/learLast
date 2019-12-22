@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    用户名: <input type="text" id="us">
+    密码: <input type="password" id="pw">
+    <button id="btn"></button>
+    <!-- <div id="box"></div> -->
+    <script>
+        // 幼年体
+        // us.onblur = function(){
+        //     fetch('/getname?user='+us.value).then(d=>d.json()).then(d=>{
+        //         if(code === 0){
+        //             this.style.border = '1px solid green'
+        //         }else if(code === 1){
+        //             this.style.border = '1px solid red'
+        //         }
+        //     })
+        // }
+        
+        // 进化 ! async兽 ! 
+        // us.onblur = async function(){
+        //     let data = await fetch('/getname?user='+this.value)
+        //     if(data.code === 0){
+        //         this.style.border = '1px solid green'
+        //     }else if(data.code === 1){
+        //         this.style.border = '1px solid red'
+        //     }
+        // }
+
+        // 究极进化 ! post方式的 async 兽!
+        us.onblur = async function(){
+            let data = await fetch('/getname',{
+                method:'post',
+                body:'user=' + this.value,
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                }
+            }).then(d=>d.json())
+            console.log(data)
+        }
+
+
+        // 在下与世无争
+        btn.onclick = function(){
+            fetch('/register?user='+us.value+'&password='+pw.value).then(d.json()).then(d=>{
+                if(d.code === 0){
+                    alert('注册失败')
+                }else if(d.code === 1){
+                    alert('注册成功')
+                }else if(d.code === 2){
+                    alert(d.msg)
+                }
+            })
+        }
+    </script>
+</body>
+</html>
