@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button>{{num}}</button>
+        <h1>{{hw}}</h1>
+        <hr/>
+        <ul>
+            <li v-for="(val,key) in ary">{{val}}:{{key}}</li>
+        </ul>
+    </div>
+<script src="./vue.js"></script>
+<script>
+    let v = new Vue({
+        el:'#app',
+        data:{
+            num:0,
+            hw:'砸瓦鲁多!',
+            ary:['平角裤平角裤','木大','呀嘞呀嘞']
+        }
+    })
+    setTimeout(()=>{
+        v.ary.push('JOJO!')
+        v.num ++
+    },3000)
+</script>
+</body>
+</html>
