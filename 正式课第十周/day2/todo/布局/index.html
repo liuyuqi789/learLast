@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>todos</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+    <section class="todoapp">
+        <div>
+            <header class="header" >
+                <h1>todos</h1>
+                <input 
+                    class="new-todo" 
+                    placeholder="请输入内容" 
+                    @keyup.13="fn"
+                    v-model='val'
+                >
+            </header>
+            <section class="main">
+                <input class="toggle-all" type="checkbox"  v-model='allChecked' @change="allCheckedFn">
+                <ul class="todo-list">
+                    <li v-for='(val,key) in setAry' :class="{active:val.onoff,editing:val.onoff,completed:val.checked}">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" @change='xl' v-model="val.checked">
+                            <label @dblclick='shuang(key,$event)'>{{val.txt}}</label>
+                            <button class="destroy" @click="scla(key,$event)"></button>
+                        </div>
+                        <input 
+                            class="edit" 
+                            v-text="val.txt"
+                            v-show='val.onoff'
+                            @blur='shijiao(key,$event)'
+                            :data-txt="val.txt" 
+                            v-model="val.txt" 
+                            autofocus 
+                        />
+                    </li>
+                </ul>
+            </section>
+            <footer class="footer">
+	            <span class="todo-count">
+	            	<strong>{{jitiao}}</strong>
+	            	<span>条未选中</span>
+                </span>
+                <ul 
+                    class="filters"
+                    @click='dxdbtn'
+                >
+                    <li>
+                        <a 
+                            href="#/all" 
+                            :class="datanum===0 ? 'select' : ''"
+                            data-num = '0'
+                        >全部</a>
+                    </li>
+                    <li>
+                        <a 
+                            href="#/unchecked" 
+                            data-num = '1'
+                            :class="datanum===1 ? 'select' : ''"
+                        >未选中</a>
+                    </li>
+                    <li>
+                        <a 
+                            data-num = '2'
+                            href="#/checked"
+                            class="datanum===2 ? 'select' : ''"
+                        >已选中</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+    </section>
+<script src="../../vue.js"></script>
+<script>
+    // editing completed
+    // editing ''
+    // ''
+    //completed
+ 
+    new Vue({
+        el:'.todoapp',
+        data:{
+            val:'',
+            allChecked:false,
+            datanum:0,
+            ary:[
+                {
+                    id:0,
+                    txt:'哈哈',
+                    checked:true,
+                    onoff:false
+                },
+                {
+                    id:1,
+                    txt:'呵呵',
+                    checked:false,
+                    onoff:false
+                }
+            ]
+        },
+        computed:{
+            // 底部页面显示有几个
+            jitiao(){
+                let num = 0
+                let a = this.ary.filter(item=>item.checked === false)
+                num = a.length
+                return num
+            },
+            // 全选中？未选中？已选中？
+            setAry(){
+                const {ary,datanum} = this
+                let arr = []
+                ary.forEach(item=>{
+                    if(datanum == 0){
+                        arr.push(item)
+                    }else if(datanum == 1){
+                        if(!item.checked){
+                            arr.push(item)
+                        }
+                    }else if(datanum == 2){
+                        if(item.checked){
+                            arr.push(item)
+                        }
+                    }
+                })
+                return arr
+            },
+        },
+        methods:{
+            // 页面写入
+            fn(ev){
+                let num = 1
+                this.ary.push({
+                    id:++num,
+                    txt:ev.target.value,
+                    checked:false,
+                    onoff:false
+                })
+                this.val = ''
+            },
+            // 单选
+            xl(){
+                this.allChecked = this.ary.every((value, index)=>{ return value.checked == true });
+            },
+            // 全选
+            allCheckedFn(ev){
+                this.ary.forEach(item => {
+                    item.checked = ev.target.checked
+                })
+            },
+            // 双击显示
+            shuang(index,ev){
+                this.ary.forEach((ele,i) => {
+                    if(index === i){
+                        ele.onoff = true
+                    }else{
+                        ele.onoff = false
+                    }
+                })
+                ev.currentTarget.parentElement.nextElementSibling.select()
+            },
+            // 失焦隐藏
+            shijiao(index,ev){
+                this.ary.forEach((ele,i)=>{
+                    if(index === i){
+                        if(!ele.txt){
+                            alert('请输入要更改的东西')
+                        }else{
+                            ele.onoff = false
+                            ele.checked = false
+                        }
+                    }
+                })
+            },
+            // 底部点击
+            dxdbtn(ev){
+                if(ev.target.tagName === 'A'){
+                    this.datanum = ev.target.dataset.num
+                }
+            },
+            // 删除
+            scla(index,ev){
+                this.ary = this.ary.filter((item,i)=>{
+                    return this.ary[i] !== this.ary[index]
+                })
+            }
+        }
+            
+    })
+</script>
+</body>
+</html>
