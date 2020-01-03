@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>父</h1>
+        <button @click="changeFn">父按钮{{num}}</button>
+        <hr />
+        <temp1 :nn="num" @child="fromChild"></temp1>
+    </div>
+    <template id="temp1">
+        <div>
+            <h5>子</h5>
+            <button @click='add'>子{{cnum}}</button>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        const temp1 = {
+            template:'#temp1',
+            props:['nn'],
+            data(){
+                return {
+                    cnum:this.nn
+                }
+            },
+            methods: {
+                add(){
+                    this.cnum += 2
+                    this.$emit('child',this.cnum)
+                }
+            }
+        }
+
+        new Vue({
+            el:'#app',
+            data:{
+                num:0
+            },
+            methods: {
+                changeFn(){
+                    this.num++
+                },
+                fromChild(val){
+                    this.num = val
+                }
+            },
+            components:{
+                temp1
+            }
+        })
+    </script>
+</body>
+</html>
