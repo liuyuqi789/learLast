@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ppa :data="ary">
+            <template #cdata="childrenData">
+                <h2>我叫{{childrenData.nn}}</h2>
+                <p>我的年龄是{{childrenData.age}}</p>
+                <p>我的编号是{{childrenData.id}}</p>
+            </template>
+        </ppa>
+    </div>
+
+    <template id="ppa">
+        <div>
+            <ul>
+                <li v-for="(val,key) in data">
+                    <slot
+                        name="cdata",
+                        :nn="val.name",
+                        :age="val.age",
+                        :id="val.id"
+                    > {{val.name}}</slot>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="vue.js"></script>
+    <script>
+        const ppa = {
+            template:'#ppa',
+            props:['data']
+        }
+        new Vue({
+            el:'#app',
+            data:{
+                ary:[
+                    {
+                        name:'哇卡是',
+                        age:111,
+                        id:0
+                    },
+                    {
+                        name:'哇不是',
+                        age:112,
+                        id:0
+                    },
+                    {
+                        name:'哇就是',
+                        age:112000000000000000,
+                        id:0
+                    }
+                ]
+            },
+            components:{
+                ppa
+            }
+        })
+    </script>
+</body>
+</html>

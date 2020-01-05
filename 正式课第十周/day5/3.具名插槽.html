@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ppa>
+            <div slot="head">我头呢？在这</div>
+            <div slot="body">我身体呢？在这</div>
+            <div slot="footer">我角呢？在这</div>
+        </ppa>
+    </div>
+
+    <template id="ppa">
+        <div>
+            <slot name="head">
+                <div class="head">头部</div>
+            </slot>
+            <slot name="body">
+                <div class="body">身体</div>
+            </slot>
+            <slot name="footer">
+                <div class="footer">角</div>
+            </slot>
+        </div>
+    </template>
+<script src="vue.js"></script>
+<script>
+    const ppa = {
+        template:'#ppa'
+    }
+
+
+    new Vue({
+        el:'#app',
+        components:{
+            ppa
+        }
+    })
+</script>
+</body>
+</html>
